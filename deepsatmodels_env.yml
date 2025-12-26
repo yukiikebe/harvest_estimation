@@ -1,4 +1,4 @@
-name: deepsatmodels
+name: deepsatmodels_env
 channels:
   - conda-forge
   - defaults
@@ -73,6 +73,12 @@ dependencies:
   - yaml=0.2.5=h516909a_0
   - zlib=1.2.11=h7b6447c_3
   - zstd=1.4.5=h0b5b093_0
+  - r-base=4.3
+  - r-essentials
+  - r-ggplot2
+  - r-data.table
+  - r-dplyr
+  - r-argparse
   - pip:
     - absl-py==0.9.0
     - addict==2.2.1

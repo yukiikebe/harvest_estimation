@@ -26,10 +26,10 @@ AR24:
     paths_eval: "/home/vuonghn/research/code/Agriculture/DeepSatModels/datasets/AR24/fold-paths/val_data.csv"
     paths_test: "/home/vuonghn/research/code/Agriculture/DeepSatModels/datasets/AR24/fold-paths/test_data.csv"
 Cal:
-    basedir: '/mnt/data/mzarvani/new_out/out/'
-    paths_train: "/mnt/data/mzarvani/new_out/out/fold-paths/train_sub_data.csv"
-    paths_eval: "/mnt/data/mzarvani/new_out/out/fold-paths/val_sub_data.csv"
-    paths_test: "/mnt/data/mzarvani/new_out/out/fold-paths/val_sub_data.csv"
+    basedir: '/mnt/ssd_8tb/CA_2022_bframe2'
+    paths_train: "data/California/tiles_train_val.csv"
+    paths_eval: "data/California/tiles_train_val.csv"
+    paths_test: "data/California/tiles_train_val.csv"
 
 # PASTIS24 benchmark -------------------------------------------------------------------------------------------------
 PASTIS24_fold1:

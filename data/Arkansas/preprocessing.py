@@ -95,7 +95,7 @@ def create_splits(imgs, input_shape, pad_mode="reflect"):
     for i in range(0, imgs.shape[1], input_shape[0]):
         for j in range(0, imgs.shape[2], input_shape[1]):
             splits.append(imgs[:, i : i + input_shape[0], j : j + input_shape[1]].copy())
-            patch_ids.append((i, j))    
+            patch_ids.append((i, j))
     return splits, patch_ids
 
 def stack_bands(satellite_image):
@@ -224,7 +224,7 @@ if __name__ == "__main__":
 
     if not os.path.exists(split_dir):
         os.makedirs(split_dir)
-    
+
     print("\nStep 1: Visualize crop distribution")
     visual_crop_distribution(satellite_image_dir, output_dir)
 

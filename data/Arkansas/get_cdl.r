@@ -6,7 +6,7 @@ library(readxl)
 
 
 # Base directory containing all the subdirectories
-base_dir <- "/home/khoavo/Desktop/workplace/satelite/raw_arkansas/2023_all"
+base_dir <- "~/AR_sentinel2/2023_AR"
 
 # List all subdirectories in the base directory
 sub_dirs <- list.dirs(base_dir, full.names = TRUE, recursive = FALSE)

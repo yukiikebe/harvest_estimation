@@ -23,14 +23,14 @@ DATASETS:
     dataset: "Cal"
     label_map:
     max_seq_len: 20
-    batch_size: 10
+    batch_size: 32
     extra_data:
     num_workers: 4
   eval:
     dataset: "Cal"
     label_map:
     max_seq_len: 20
-    batch_size: 10
+    batch_size: 32
     extra_data:
     num_workers: 4
 
@@ -38,7 +38,7 @@ DATASETS:
     dataset: "Cal"
     label_map:
     max_seq_len: 20
-    batch_size: 10
+    batch_size: 32
     extra_data:
     num_workers: 4
 
@@ -57,7 +57,7 @@ SOLVER:
   weight_decay: 0.000
 
 CHECKPOINT:
-  load_from_checkpoint: '/home/mzarvani/DeepSatModels/models/saved_models/CAL_ALL_focal_p/best.pth'
+  load_from_checkpoint: 'models/saved_models/calfornia_seasonal/best.pth'
   partial_restore: False
   save_path: 'models/saved_models/CAL_subregion/'
   train_metrics_steps: 250

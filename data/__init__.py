@@ -26,7 +26,7 @@ def get_dataloaders(config):
     eval_config  = config['DATASETS']['eval']
     eval_config['bidir_input'] = model_config['architecture'] == "ConvBiRNN"
     dataloaders = {}
-    
+
     # TRAIN data -------------------------------------------------------------------------------------------------------
     train_config['base_dir'] = DATASET_INFO[train_config['dataset']]['basedir']
     train_config['paths'] = DATASET_INFO[train_config['dataset']]['paths_train']
@@ -47,10 +47,10 @@ def get_dataloaders(config):
             batch_size=train_config['batch_size'], shuffle=True, return_paths=True, num_workers=train_config['num_workers'])
     elif 'Cal' in train_config['dataset']:
         dataloaders['train'] = get_california_dataloader(
-            paths_file = train_config['paths'], root_dir=train_config['base_dir'],
+            paths_file = train_config['paths'], root_dir=train_config['base_dir'], split='train',
             transform=PASTIS_segmentation_transform(model_config, is_training=True),
-            batch_size=train_config['batch_size'], shuffle=True, return_paths=True, num_workers=train_config['num_workers'])
-        
+            batch_size=train_config['batch_size'], shuffle=True, return_paths=False, num_workers=train_config['num_workers'])
+
     else:
         dataloaders['train'] = get_france_dataloader(
             paths_file=train_config['paths'], root_dir=train_config['base_dir'],
@@ -78,7 +78,7 @@ def get_dataloaders(config):
             num_workers=eval_config['num_workers'])
     elif 'Cal' in eval_config['dataset']:
         dataloaders['eval'] = get_california_dataloader(
-            paths_file=eval_config['paths'], root_dir=eval_config['base_dir'],
+            paths_file=eval_config['paths'], root_dir=eval_config['base_dir'], split='val',
             transform=PASTIS_segmentation_transform(model_config, is_training=False),
             batch_size=eval_config['batch_size'], shuffle=False, return_paths=False,
             num_workers=eval_config['num_workers'])

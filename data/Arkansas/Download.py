@@ -6,21 +6,25 @@ import multiprocessing
 from tqdm import tqdm
 import rasterio
 import matplotlib.pyplot as plt
-
+import json
 
 ee.Authenticate()
-ee.Initialize(project='satelite-430703')
+ee.Initialize(project='satellite-470217')
 
 # Configuration
-roig = [
-    [-94.7610, 36.6652],
-    [-94.7610, 32.8376],
-    [-89.5522, 36.6652],
-    [-89.5522, 32.8376],
-]
-start_day = '2023-01-01'
-end_day = '2023-12-31'
-data_dir = '/home/khoavo/Desktop/workplace/satelite/raw_arkansas/2023_all/'
+# roig = [
+#     [-92.318115, 33.008663],
+#       [-92.318115, 34.741612],
+#       [-90.010986, 34.741612],
+#       [-90.010986, 33.008663],
+#       [-92.318115, 33.008663]
+# ]
+json_file = "right_bottom_ar.json"
+with open(json_file) as f:
+    roig = json.load(f)["features"][0]["geometry"]["coordinates"][0]
+start_day = '2019-01-01'
+end_day = '2019-12-31'
+data_dir = '/mnt/ssd_8tb/AR_sentinel2/2019_AR'
 
 
 def save_tci_image(blue_band_path, green_band_path, red_band_path, output_path):
@@ -231,6 +235,7 @@ if __name__ == "__main__":
     lon_max = max(roig[2][0], roig[3][0])
     lat_min = min(roig[1][1], roig[3][1])
     lat_max = max(roig[0][1], roig[2][1])
+    
 
     # Create linspace for longitude and latitude
     lon_range = np.linspace(lon_min, lon_max, 21)  # 20 intervals, so 21 points

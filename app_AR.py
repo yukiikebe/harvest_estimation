@@ -18,7 +18,6 @@ from datetime import datetime, timedelta
 from folium.plugins import Draw
 
 from data.Arkansas.Download import download_dataset
-from code.Agriculture.DeepSatModels.data.Arkansas.pre_processing_before_clean import preprocess_AR
 from train_and_eval.inference_AR24 import inference_AR
 
 
@@ -36,7 +35,7 @@ config = {"save_satellite_dir": '/home/vuonghn/research/dataset/satellite/arkans
 
 
 def get_map():
-    st.markdown("#### Selection the ROI")
+    st.markdown("#### Select Region of Interest on the map")
     # Initialize a Folium map using Mapbox tiles
 
     m = folium.Map(
@@ -289,7 +288,7 @@ def app():
                 cols = st.columns(len(img_row))
                 for i, (lat_id, lon_id, img) in enumerate(img_row):
                     with cols[i]:
-                        st.image(img, caption=f"Lat: {lat_id}, Lon: {lon_id}", use_column_width=True)
+                        st.image(img, caption=f"Lat: {lat_id}, Lon: {lon_id}", use_container_width=True)
 
         if predict_trigger:
             subregion_indices = get_subregion_indices_in_roi(ar_roig, user_roig)
@@ -301,8 +300,8 @@ def app():
                 output_dir = './output_app/'
                 os.makedirs(output_dir, exist_ok=True)
                 for lat_id, lon_id in subregion_indices:
-                    inference_AR(config_file, raw_dir, input_dir, f'{lon_id}_{lat_id}', output_dir, show_gt=False)
-            st.success('Completed the dataset inference!'+str(start_date)+' to '+str(end_date))
+                    inference_AR(config_file, raw_dir, input_dir, f'{lon_id}_{lat_id}', output_dir, show_gt=False, show_gt_only=True)
+            #st.success('Completed the dataset inference!'+str(start_date)+' to '+str(end_date))
 
             cols = st.columns(len(subregion_indices))
             for i, (lat_id, lon_id) in enumerate(subregion_indices):

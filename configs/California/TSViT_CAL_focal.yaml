@@ -4,7 +4,7 @@ MODEL:
   max_seq_len: 20
   num_channels: 11
   num_features: 16
-  num_classes:  27
+  num_classes:  24
   ignore_background: False
   dropout: 0.
   patch_size: 2
@@ -18,25 +18,19 @@ MODEL:
   scale_dim: 4
 
 DATASETS:
-  class_config: "configs/Arkansas/california_data.yaml"
+  class_config: "configs/California/california_data.yaml"
   train:
-    # dataset: "AR24"
-    # label_map:
-    # max_seq_len: 60
-    # batch_size: 32
-    # extra_data:
-    # num_workers: 4
     dataset: "Cal"
     label_map:
     max_seq_len: 20
-    batch_size: 16
+    batch_size: 128
     extra_data:
-    num_workers: 4
+    num_workers: 8
   eval:
     dataset: "Cal"
     label_map:
     max_seq_len: 20
-    batch_size: 16
+    batch_size: 32
     extra_data:
     num_workers: 4
 
@@ -44,7 +38,7 @@ DATASETS:
     dataset: "Cal"
     label_map:
     max_seq_len: 20
-    batch_size: 16
+    batch_size: 32
     extra_data:
     num_workers: 4
 
@@ -56,19 +50,20 @@ SOLVER:
   gamma: 2.0
   class_weights:
   lr_scheduler: 'cosine'
-  lr_base: 1e-5
-  lr_min: 5e-6
+  lr_base: 1e-4
+  lr_min: 1e-5
   lr_start: 1e-8
   num_cycles: 1
   reset_lr: True   # resets lr to base value when loading pretrained model
   weight_decay: 0.000
 
 CHECKPOINT:
-  load_from_checkpoint: '/home/mzarvani/DeepSatModels/models/saved_models/CAL_ALL_focal_p/best.pth'
+  #load_from_checkpoint: './saved_models/best_pastis_fold5.pth'
+  load_from_checkpoint: 'models/saved_models/calfornia_seasonal/best.pth'
   partial_restore: False
-  save_path: 'models/saved_models/calfornia_new/'
-  train_metrics_steps: 250
-  eval_steps: 250
-  save_steps: 1000
+  save_path: 'models/saved_models/calfornia_seasonal/'
+  train_metrics_steps: 50
+  eval_steps: 5000 
+  save_steps: 5000
 DEVICE: 
-  device_id: [0,1]
+  device_id: [0]
