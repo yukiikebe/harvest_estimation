@@ -17,6 +17,13 @@ class Config:
         savgol_polyorder=3,
         output_root="./outputs",
         gt_windows=None,
+        emergence_days_map=None,
+        seeding_windows=None,
+        seeding_rise_threshold=0.02,
+        seeding_rise_consecutive=2,
+        seeding_edge_buffer=2,
+        seeding_ambiguity_gap=2,
+        seeding_disagreement_days=14,
     ):
         self.cdl_yaml_path = Path(cdl_yaml_path)
         self.output_root = Path(output_root)
@@ -33,6 +40,14 @@ class Config:
         self.min_points = min_points
         self.savgol_window = savgol_window
         self.savgol_polyorder = savgol_polyorder
+
+        self.emergence_days_map = emergence_days_map or {}
+        self.seeding_windows = seeding_windows or {}
+        self.seeding_rise_threshold = float(seeding_rise_threshold)
+        self.seeding_rise_consecutive = int(seeding_rise_consecutive)
+        self.seeding_edge_buffer = int(seeding_edge_buffer)
+        self.seeding_ambiguity_gap = int(seeding_ambiguity_gap)
+        self.seeding_disagreement_days = int(seeding_disagreement_days)
 
         self._validate()
 
@@ -69,6 +84,11 @@ class Config:
             raise ValueError(
                 "savgol_window must be larger than savgol_polyorder"
             )
+
+        if self.seeding_rise_consecutive <= 0:
+            raise ValueError("seeding_rise_consecutive must be >= 1")
+        if self.seeding_disagreement_days < 0:
+            raise ValueError("seeding_disagreement_days must be >= 0")
         
         for crop, (start, end) in self.gt_windows.items():
             if crop not in self.crop_dict.values():

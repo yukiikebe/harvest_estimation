@@ -24,7 +24,11 @@ def _plot_harvest_detection(
         green_mask=None,
         farm_id=None,
         farm_mask=None,
-        logger=None
+        logger=None,
+        seeding_date=None,
+        rise_date=None,
+        low_confidence=False,
+        low_conf_reason="",
     ):
     
     if green_mask is None:
@@ -43,6 +47,8 @@ def _plot_harvest_detection(
             plt.axvline(pred_start, color="orange", linestyle=":", label="Start of Harvest")
         if pred_end:
             plt.axvline(pred_end, color="red", linestyle="-.", label="End of Harvest")
+        if seeding_date is not None:
+            plt.axvline(seeding_date, color="teal", linestyle="--", label="Estimated Seeding")
         
         if gt_windows is not None and crop_name in gt_windows and pred_start is not None:
             gt_start_str, gt_end_str = gt_windows[crop_name]
@@ -71,6 +77,20 @@ def _plot_harvest_detection(
         plt.xlabel("Date")
         plt.ylabel("Index Value")
         plt.ylim(-1.5, 1.5)
+        if low_confidence:
+            note = "LOW CONFIDENCE"
+            if low_conf_reason:
+                note = f"{note}: {low_conf_reason}"
+            plt.gca().text(
+                0.01,
+                0.98,
+                note,
+                transform=plt.gca().transAxes,
+                va="top",
+                ha="left",
+                fontsize=8,
+                bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="red", alpha=0.8),
+            )
         plt.grid(True)
         plt.legend()
         plt.tight_layout()
@@ -107,6 +127,8 @@ def _plot_harvest_detection(
 
         ax1.axvline(pred_start, color="orange", linestyle=":", label="Predicted Start")
         ax1.axvline(pred_end, color="red", linestyle="-.", label="Predicted End")
+        if seeding_date is not None:
+            ax1.axvline(seeding_date, color="teal", linestyle="--", label="Estimated Seeding")
 
         # GT window shading (same idea as your earlier request)
         if gt_windows is not None and crop_name in gt_windows and pred_start is not None:
@@ -126,6 +148,20 @@ def _plot_harvest_detection(
         ax1.set_xlabel("Date")
         ax1.set_ylabel("Index Value")
         ax1.set_ylim(-1.5, 1.5)
+        if low_confidence:
+            note = "LOW CONFIDENCE"
+            if low_conf_reason:
+                note = f"{note}: {low_conf_reason}"
+            ax1.text(
+                0.01,
+                0.98,
+                note,
+                transform=ax1.transAxes,
+                va="top",
+                ha="left",
+                fontsize=8,
+                bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="red", alpha=0.8),
+            )
         ax1.grid(True)
         ax1.legend(loc="best")
 
@@ -150,6 +186,11 @@ def _write_crop_summary_csv(
     summary_rows: Optional[list] = None,
     # Optional context (farm-level)
     farm_id: Optional[str] = None,
+    seeding_date: Optional[datetime] = None,
+    rise_date: Optional[datetime] = None,
+    rise_strength: Any = "",
+    low_confidence: bool = False,
+    low_conf_reason: str = "",
 ) -> None:
     """
     Write one summary CSV for either:
@@ -181,7 +222,20 @@ def _write_crop_summary_csv(
     all_ts = sorted(set(all_ts))
 
     # Header
-    base_header = ["Date", "NDVI", "NDWI", "EVI", "Harvest", "start_rule", "div_start", "div_end", "IoU"]
+    base_header = [
+        "Date",
+        "NDVI",
+        "NDWI",
+        "EVI",
+        "Harvest",
+        "start_rule",
+        "div_start",
+        "div_end",
+        "IoU",
+        "seeding_date",
+        "low_confidence",
+        "low_conf_reason",
+    ]
     header = (["FarmID"] + base_header) if farm_id is not None else base_header
 
     def _fmt(x: float) -> str:
@@ -207,18 +261,27 @@ def _write_crop_summary_csv(
                 ds = div_start
                 de = ""
                 iou_cell = iou
+                seed_cell = seeding_date.strftime("%Y-%m-%d") if seeding_date is not None else ""
+                low_conf_cell = str(bool(low_confidence))
+                low_conf_reason_cell = low_conf_reason
             elif is_end:
                 harvest_flag = "End"
                 rule = ""
                 ds = ""
                 de = div_end
                 iou_cell = ""
+                seed_cell = ""
+                low_conf_cell = ""
+                low_conf_reason_cell = ""
             else:
                 harvest_flag = ""
                 rule = ""
                 ds = ""
                 de = ""
                 iou_cell = ""
+                seed_cell = ""
+                low_conf_cell = ""
+                low_conf_reason_cell = ""
 
             row = [
                 ts.strftime("%Y-%m-%d"),
@@ -230,6 +293,9 @@ def _write_crop_summary_csv(
                 ds,
                 de,
                 iou_cell,
+                seed_cell,
+                low_conf_cell,
+                low_conf_reason_cell,
             ]
 
             if farm_id is not None:
@@ -250,5 +316,8 @@ def _write_crop_summary_csv(
                     "div_start": ds,
                     "div_end": de,
                     "IoU": iou_cell,
+                    "seeding_date": seed_cell,
+                    "low_confidence": low_conf_cell,
+                    "low_conf_reason": low_conf_reason_cell,
                 }
                 summary_rows.append(record)

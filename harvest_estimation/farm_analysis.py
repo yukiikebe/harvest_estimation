@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+from collections import Counter
 
 import numpy as np
 import pandas as pd
@@ -170,9 +171,15 @@ class FarmLevelAnalyzer:
                     continue
 
                 # ---- Detection using your HarvestDetector ----
-                det_ndvi = self.detector.detect(base_timestamp, ndvi_array, label=f"farm:{farm_id}/NDVI")
-                det_ndwi = self.detector.detect(base_timestamp, ndwi_array, label=f"farm:{farm_id}/NDWI")
-                det_evi  = self.detector.detect(base_timestamp, evi_array,  label=f"farm:{farm_id}/EVI")
+                det_ndvi = self.detector.detect(base_timestamp, ndvi_array, label=f"farm:{farm_id}/NDVI", crop_name=crop_name)
+                det_ndwi = self.detector.detect(base_timestamp, ndwi_array, label=f"farm:{farm_id}/NDWI", crop_name=crop_name)
+                det_evi  = self.detector.detect(base_timestamp, evi_array,  label=f"farm:{farm_id}/EVI", crop_name=crop_name)
+
+                det_by_src = {
+                    "NDVI": det_ndvi,
+                    "NDWI": det_ndwi,
+                    "EVI": det_evi,
+                }
 
                 # ---- Voting using your HarvestVoter ----
                 pred_start, chosen_source, chosen_rule, div_start = self.voter.vote_with_rule(
@@ -189,6 +196,33 @@ class FarmLevelAnalyzer:
                     crop_name=crop_name,
                     year=year,
                 )
+
+                seeding_candidates = [d.seeding_date for d in det_by_src.values() if d.seeding_date is not None]
+                seeding_date = None
+                if seeding_candidates:
+                    counts = Counter(seeding_candidates).most_common()
+                    top_count = counts[0][1]
+                    top_dates = [d for d, n in counts if n == top_count]
+                    seeding_date = min(top_dates)
+
+                low_conf_reasons = set()
+                for d in det_by_src.values():
+                    if d.low_conf_reason:
+                        low_conf_reasons.update(r for r in d.low_conf_reason.split("|") if r)
+
+                disagreement_days = int(getattr(self.cfg, "seeding_disagreement_days", 14))
+                if len(seeding_candidates) >= 2:
+                    spread = (max(seeding_candidates) - min(seeding_candidates)).days
+                    if spread > disagreement_days:
+                        low_conf_reasons.add("seeding_cross_index_disagreement")
+                if seeding_date is None:
+                    low_conf_reasons.add("missing_seeding_date")
+
+                chosen_det = det_by_src.get(chosen_source)
+                rise_date = chosen_det.rise_date if chosen_det else None
+                rise_strength = chosen_det.rise_strength if chosen_det else None
+                low_confidence = bool(low_conf_reasons)
+                low_conf_reason = "|".join(sorted(low_conf_reasons))
 
                 if pred_end is None or pred_end < pred_start:
                     end_candidates = [d for d in (det_ndvi.end, det_ndwi.end, det_evi.end) if d is not None and d >= pred_start]
@@ -221,7 +255,11 @@ class FarmLevelAnalyzer:
                     green_mask=green_mask,            
                     farm_id=farm_id,
                     farm_mask=farm_mask,
-                    logger=self.logger
+                    logger=self.logger,
+                    seeding_date=seeding_date,
+                    rise_date=rise_date,
+                    low_confidence=low_confidence,
+                    low_conf_reason=low_conf_reason,
                 )
                     
 
@@ -241,6 +279,11 @@ class FarmLevelAnalyzer:
                     iou=iou,
                     summary_rows=None,   
                     farm_id=farm_id,
+                    seeding_date=seeding_date,
+                    rise_date=rise_date,
+                    rise_strength=rise_strength,
+                    low_confidence=low_confidence,
+                    low_conf_reason=low_conf_reason,
                 )
 
                 results.append(FarmResult(

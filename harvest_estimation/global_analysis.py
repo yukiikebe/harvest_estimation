@@ -216,17 +216,26 @@ class GlobalAnalyzer:
                 timestamps_array,
                 ndvi_array,
                 label=f"crop:{crop_name}",
+                crop_name=crop_name,
             )
             detection_ndwi = self.detector.detect(
                 timestamps_array,
                 ndwi_array,
                 label=f"crop:{crop_name}",
+                crop_name=crop_name,
             )
             detection_evi = self.detector.detect(
                 timestamps_array,
                 evi_array,
                 label=f"crop:{crop_name}",
+                crop_name=crop_name,
             )
+
+            det_by_src = {
+                "NDVI": detection_ndvi,
+                "NDWI": detection_ndwi,
+                "EVI": detection_evi,
+            }
 
             # start vote (use your voter if it matches, otherwise keep the old rule)
             pred_start, chosen_src, chosen_rule, div_start = self.voter.vote_with_rule(
@@ -243,6 +252,33 @@ class GlobalAnalyzer:
                 crop_name=crop_name,
                 year=year,
             )
+
+            seeding_candidates = [d.seeding_date for d in det_by_src.values() if d.seeding_date is not None]
+            seeding_date = None
+            if seeding_candidates:
+                counts = Counter(seeding_candidates).most_common()
+                top_count = counts[0][1]
+                top_dates = [d for d, n in counts if n == top_count]
+                seeding_date = min(top_dates)
+
+            low_conf_reasons = set()
+            for d in det_by_src.values():
+                if d.low_conf_reason:
+                    low_conf_reasons.update(r for r in d.low_conf_reason.split("|") if r)
+
+            disagreement_days = int(getattr(self.cfg, "seeding_disagreement_days", 14))
+            if len(seeding_candidates) >= 2:
+                spread = (max(seeding_candidates) - min(seeding_candidates)).days
+                if spread > disagreement_days:
+                    low_conf_reasons.add("seeding_cross_index_disagreement")
+            if seeding_date is None:
+                low_conf_reasons.add("missing_seeding_date")
+
+            chosen_det = det_by_src.get(chosen_src)
+            rise_date = chosen_det.rise_date if chosen_det else None
+            rise_strength = chosen_det.rise_strength if chosen_det else None
+            low_confidence = bool(low_conf_reasons)
+            low_conf_reason = "|".join(sorted(low_conf_reasons))
 
             if pred_start is None or pred_end is None:
                 continue
@@ -271,6 +307,10 @@ class GlobalAnalyzer:
                     gt_windows=self.cfg.gt_windows,
                     green_mask=None,
                     logger=self.logger,
+                    seeding_date=seeding_date,
+                    rise_date=rise_date,
+                    low_confidence=low_confidence,
+                    low_conf_reason=low_conf_reason,
                 )
             else:
                 print(f"↪️  Skip plotting {graph_path} (exists)")
@@ -291,6 +331,11 @@ class GlobalAnalyzer:
                     div_end=div_end,
                     iou=iou,
                     summary_rows=summary_rows,
+                    seeding_date=seeding_date,
+                    rise_date=rise_date,
+                    rise_strength=rise_strength,
+                    low_confidence=low_confidence,
+                    low_conf_reason=low_conf_reason,
                 )
 
         excel_path = output_root / "harvest_summary_all_crops.xlsx"

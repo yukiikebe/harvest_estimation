@@ -71,6 +71,16 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional YAML mapping crop_name -> [MM-DD, MM-DD] (or {start,end}).",
     )
+    p.add_argument(
+        "--cdl-root",
+        type=Path,
+        default=None,
+        help=(
+            "Optional root directory for CDL files. "
+            "If set, per-tile CDL is resolved from <cdl-root>/<tile>/cdl.tif "
+            "(or fallback <cdl-root>/<tile>.tif)."
+        ),
+    )
 
     # Outputs
     p.add_argument(
@@ -152,6 +162,7 @@ def main() -> None:
     logger.info(f"dataset_root  = {args.dataset_root}")
     logger.info(f"tiles         = {len(tile_dirs)} ({'selected' if args.tiles else 'all'})")
     logger.info(f"output_root   = {args.output_root}")
+    logger.info(f"cdl_root      = {args.cdl_root if args.cdl_root else '(use tile_dir/cdl.tif)'}")
     logger.info(f"year          = {args.year}")
     logger.info(f"run_global    = {not args.no_global}")
     logger.info(f"run_farm      = {not args.no_farm}")
@@ -165,7 +176,12 @@ def main() -> None:
 
     for tile_dir in tile_dirs:
         sample_path = tile_dir
-        plot_mask_path = tile_dir / "cdl.tif"
+        if args.cdl_root is None:
+            plot_mask_path = tile_dir / "cdl.tif"
+        else:
+            cdl_in_tile_dir = args.cdl_root / tile_dir.name / "cdl.tif"
+            cdl_flat_tif = args.cdl_root / f"{tile_dir.name}.tif"
+            plot_mask_path = cdl_in_tile_dir if cdl_in_tile_dir.exists() else cdl_flat_tif
         tile_output_root = args.output_root / tile_dir.name
         tile_output_root.mkdir(parents=True, exist_ok=True)
 
