@@ -21,6 +21,7 @@ from doy_prediction.tile_cnn_data import (
 from doy_prediction.metrics import harvest_window_iou, maybe_harvest_window_iou
 from doy_prediction.train_tile_cnn import evaluate_model
 from doy_prediction.tile_cnn_model import TileCNNRegressor, normalized_to_doy
+from doy_prediction.tile_rnn_model import TileRNNRegressor
 
 
 class TileCnnDataTests(unittest.TestCase):
@@ -180,6 +181,26 @@ Corn:
         doy = normalized_to_doy(out)
         self.assertEqual(doy.shape, (3, 2))
         self.assertTrue(np.all(doy[:, 0] <= doy[:, 1]))
+
+    def test_rnn_model_forward_reads_fixed_length_input(self) -> None:
+        model = TileRNNRegressor(in_channels=4, hidden_size=8, num_layers=1)
+        x = torch.randn(3, 4, 73)
+
+        out = model(x)
+
+        self.assertEqual(tuple(out.shape), (3, 2))
+
+    def test_rnn_model_forward_supports_per_layer_hidden_sizes(self) -> None:
+        model = TileRNNRegressor(in_channels=4, hidden_sizes=(8, 16, 32))
+        x = torch.randn(3, 4, 73)
+
+        out = model(x)
+
+        self.assertEqual(tuple(out.shape), (3, 2))
+        self.assertEqual(len(model.rnn_layers), 3)
+        self.assertEqual(model.rnn_layers[0].hidden_size, 8)
+        self.assertEqual(model.rnn_layers[1].hidden_size, 16)
+        self.assertEqual(model.rnn_layers[2].hidden_size, 32)
 
     def test_harvest_window_iou(self) -> None:
         self.assertAlmostEqual(harvest_window_iou(60, 110, 50, 100), 40.0 / 60.0)

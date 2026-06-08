@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 import random
-from typing import Iterable
+from typing import Callable, Iterable
 
 import numpy as np
 import torch
@@ -149,6 +149,9 @@ def train_crop_model(
     wandb_mode: str,
     outputs_root: Path,
     min_points: int,
+    model_factory: Callable[[int], nn.Module] | None = None,
+    model_name: str = "cnn",
+    model_config: dict[str, object] | None = None,
 ) -> None:
     train_years = set(int(year) for year in train_years)
     test_years = set(int(year) for year in test_years)
@@ -171,7 +174,10 @@ def train_crop_model(
     test_loader = make_loader(test_records, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     in_channels = len(get_feature_names(feature_set)) + 1
-    model = TileCNNRegressor(in_channels=in_channels).to(device)
+    if model_factory is None:
+        model_factory = lambda model_in_channels: TileCNNRegressor(in_channels=model_in_channels)
+    model_config = dict(model_config or {})
+    model = model_factory(in_channels).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
     loss_fn = nn.L1Loss()
 
@@ -204,6 +210,8 @@ def train_crop_model(
         num_val=len(val_records),
         num_test=len(test_records),
         in_channels=in_channels,
+        model_name=model_name,
+        model_config=model_config,
         log_test_every_epoch=log_test_every_epoch,
     )
 
@@ -231,6 +239,8 @@ def train_crop_model(
                     "crop": crop,
                     "feature_set": feature_set,
                     "in_channels": in_channels,
+                    "model_name": model_name,
+                    "model_config": model_config,
                     "epochs": epoch,
                 }
             log_wandb_epoch(
@@ -259,6 +269,8 @@ def train_crop_model(
                 "crop": crop,
                 "feature_set": feature_set,
                 "in_channels": in_channels,
+                "model_name": model_name,
+                "model_config": model_config,
                 "epochs": epochs,
             }
 
@@ -288,6 +300,8 @@ def train_crop_model(
             "num_train": len(train_records),
             "num_val": len(val_records),
             "num_test": len(test_records),
+            "model_name": model_name,
+            "model_config": model_config,
             "history": history,
             "train_metrics": train_metrics,
             "val_metrics": val_metrics,
@@ -342,7 +356,7 @@ def make_loader(
 
 
 def run_epoch(
-    model: TileCNNRegressor,
+    model: nn.Module,
     loader: DataLoader,
     optimizer: torch.optim.Optimizer,
     loss_fn: nn.Module,
@@ -372,7 +386,7 @@ def run_epoch(
 
 @torch.no_grad()
 def predict_records(
-    model: TileCNNRegressor,
+    model: nn.Module,
     loader: DataLoader,
     device: torch.device,
 ) -> list[dict[str, object]]:
@@ -415,7 +429,7 @@ def predict_records(
 
 @torch.no_grad()
 def evaluate_model(
-    model: TileCNNRegressor,
+    model: nn.Module,
     loader: DataLoader,
     device: torch.device,
 ) -> dict[str, float]:

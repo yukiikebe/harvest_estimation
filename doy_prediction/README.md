@@ -5,6 +5,18 @@ Train crop-specific 1D-CNN models that predict harvest start/end DOY from tile-c
 MKL_THREADING_LAYER=GNU python -m doy_prediction.train_tile_cnn --outputs-root ./outputs --feature-set ndvi_only --train-years 2019 2020 2021 2022 --test-years 2023 --save-dir ./outputs_prediction_DOY/models/harvest_cnn_trial --epochs 30 --batch-size 32 --device cuda --wandb --wandb-project DeepSatModels-harvest
 ```
 
+RNN training uses the same data builder and arguments. Like the CNN, the RNN receives the fixed 73-bin tensor for every sample; first-6-month and first-9-month runs keep the zero-filled rest of the year in the input.
+
+```bash
+MKL_THREADING_LAYER=GNU python -m doy_prediction.train_tile_rnn --outputs-root ./outputs --feature-set ndvi_only --train-years 2019 2020 2021 2022 --test-years 2023 --save-dir ./outputs_prediction_DOY/models/harvest_rnn_trial --epochs 30 --batch-size 32 --device cuda --rnn-type gru --hidden-size 64 --num-layers 2
+```
+
+To use three RNN layers with increasing hidden dimensions like the CNN channels:
+
+```bash
+MKL_THREADING_LAYER=GNU python -m doy_prediction.train_tile_rnn --outputs-root ./outputs --feature-set ndvi_only --train-years 2019 2020 2021 2022 --test-years 2023 --save-dir ./outputs_prediction_DOY/models/harvest_rnn_trial --epochs 30 --batch-size 32 --device cuda --rnn-type gru --hidden-sizes 32 64 128
+```
+
 Common training arguments:
 
 - `--outputs-root`: Root directory containing yearly output folders such as `2019_AR`, `2020_AR`, etc.
@@ -17,10 +29,19 @@ Common training arguments:
 - `--device`: PyTorch device, for example `cuda` or `cpu`.
 - `--crops`: Optional crop list. Defaults to `Corn Rice Soybeans`.
 - `--min-points`: Minimum number of observations required inside the selected input window. Defaults to `2`.
-- `--crop-windows-yaml`: Optional YAML file that limits which dates are fed into the CNN.
+- `--crop-windows-yaml`: Optional YAML file that limits which dates are fed into the model.
 - `--log-test-every-epoch`: Log `test/...` metrics every epoch in W&B so they can be charted like `val/...`. This does not affect model selection.
 - `--wandb`: Enable Weights & Biases logging.
 - `--wandb-project`: Weights & Biases project name.
+
+RNN-specific training arguments:
+
+- `--rnn-type`: Recurrent layer type. Choices are `gru`, `lstm`, or `rnn`.
+- `--hidden-size`: Hidden state size.
+- `--num-layers`: Number of recurrent layers.
+- `--hidden-sizes`: Optional per-layer hidden sizes, such as `32 64 128`. When set, this overrides the uniform `--hidden-size`/`--num-layers` architecture.
+- `--dropout`: Dropout used between recurrent layers and in the prediction head.
+- `--bidirectional`: Use a bidirectional recurrent layer.
 
 Crop-specific fixed windows:
 ```bash
@@ -34,15 +55,21 @@ Predict harvest start/end DOY from trained crop-specific checkpoints.
 python -m doy_prediction.predict_tile_cnn --inputs ./outputs/2023_AR --checkpoints ./models/harvest_cnn_trial --feature-set ndvi_only --out-csv ./predictions_rice.csv --crops Rice
 ```
 
+RNN checkpoints are predicted with `predict_tile_rnn`:
+
+```bash
+python -m doy_prediction.predict_tile_rnn --inputs ./outputs/2023_AR --checkpoints ./models/harvest_rnn_trial --feature-set ndvi_only --out-csv ./predictions_rice.csv --crops Rice
+```
+
 Crop-specific fixed windows:
 ```bash
 python -m doy_prediction.predict_tile_cnn --inputs ./outputs/2023_AR --checkpoints ./models/harvest_cnn_trial --feature-set ndvi_only --out-csv ./predictions_rice.csv --crops Rice --crop-windows-yaml ./configs/Arkansas/doy_crop_input_windows.yaml
 ```
 
 The crop-window YAML uses the same style as `gt_windows.yaml` and accepts either `[MM-DD, MM-DD]` or `{start: MM-DD, end: MM-DD}` for each crop.
-Window filtering keeps GT `Start`/`End` labels from the workbook, but only feeds observations inside the configured input window into the CNN.
+Window filtering keeps GT `Start`/`End` labels from the workbook, but only feeds observations inside the configured input window into the model.
 
-Without `--crop-windows-yaml`, the CNN uses all observations available across the full year. Use this option when you want to train or predict with only part of the year, such as the first 6 months or first 9 months, while still keeping the workbook `Start`/`End` labels as the targets.
+Without `--crop-windows-yaml`, the model uses all observations available across the full year. Use this option when you want to train or predict with only part of the year, such as the first 6 months or first 9 months, while still keeping the workbook `Start`/`End` labels as the targets.
 
 Ready-to-use YAML files are stored here:
 
