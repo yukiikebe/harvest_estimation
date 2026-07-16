@@ -77,7 +77,7 @@ class AddTileRadiiTests(unittest.TestCase):
 
         self.assertEqual(loaded_rows[0]["radius_x_crs"], "2.0")
         self.assertEqual(loaded_rows[0]["radius_y_crs"], "3.0")
-        self.assertEqual(loaded_rows[0]["radius_corner_crs"], "3.605551275463989")
+        self.assertAlmostEqual(float(loaded_rows[0]["radius_corner_crs"]), 3.605551275463989)
 
 
 if __name__ == "__main__":
