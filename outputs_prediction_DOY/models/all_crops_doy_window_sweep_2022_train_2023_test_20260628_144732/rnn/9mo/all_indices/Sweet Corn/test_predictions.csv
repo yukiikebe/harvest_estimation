@@ -1,0 +1,2 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,5_12,Sweet Corn,198,290,202,237,0.3804347826086957,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_12/harvest_summary_all_crops.xlsx

@@ -1,0 +1,8 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,1_6,Peaches,173,313,239,330,0.4713375796178344,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/1_6/harvest_summary_all_crops.xlsx
+train,2022,1_9,Peaches,293,313,239,330,0.21978021978021978,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/1_9/harvest_summary_all_crops.xlsx
+train,2022,7_0,Peaches,220,350,240,332,0.7076923076923077,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_0/harvest_summary_all_crops.xlsx
+train,2022,6_0,Peaches,175,350,240,331,0.52,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_0/harvest_summary_all_crops.xlsx
+train,2022,1_5,Peaches,195,313,239,330,0.5481481481481482,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/1_5/harvest_summary_all_crops.xlsx
+train,2022,7_1,Peaches,293,350,240,332,0.35454545454545455,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_1/harvest_summary_all_crops.xlsx
+train,2022,0_7,Peaches,293,313,239,330,0.21978021978021978,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/0_7/harvest_summary_all_crops.xlsx

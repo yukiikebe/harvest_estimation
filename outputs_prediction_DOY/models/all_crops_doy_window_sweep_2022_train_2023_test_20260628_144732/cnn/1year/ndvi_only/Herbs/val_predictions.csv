@@ -1,0 +1,12 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,19_1,Herbs,121,350,238,335,0.42358078602620086,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_1/harvest_summary_all_crops.xlsx
+val,2022,19_10,Herbs,315,350,262,343,0.3181818181818182,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_10/harvest_summary_all_crops.xlsx
+val,2022,15_3,Herbs,270,350,266,343,0.8690476190476191,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/15_3/harvest_summary_all_crops.xlsx
+val,2022,15_0,Herbs,270,350,263,342,0.8275862068965517,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/15_0/harvest_summary_all_crops.xlsx
+val,2022,9_4,Herbs,275,315,265,348,0.4819277108433735,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/9_4/harvest_summary_all_crops.xlsx
+val,2022,18_16,Herbs,285,350,263,342,0.6551724137931034,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_16/harvest_summary_all_crops.xlsx
+val,2022,12_10,Herbs,195,350,276,344,0.43870967741935485,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/12_10/harvest_summary_all_crops.xlsx
+val,2022,19_2,Herbs,255,295,249,335,0.46511627906976744,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_2/harvest_summary_all_crops.xlsx
+val,2022,18_3,Herbs,260,350,244,332,0.6792452830188679,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_3/harvest_summary_all_crops.xlsx
+val,2022,5_10,Herbs,121,320,177,293,0.5829145728643216,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_10/harvest_summary_all_crops.xlsx
+val,2022,16_2,Herbs,225,295,246,334,0.44954128440366975,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/16_2/harvest_summary_all_crops.xlsx

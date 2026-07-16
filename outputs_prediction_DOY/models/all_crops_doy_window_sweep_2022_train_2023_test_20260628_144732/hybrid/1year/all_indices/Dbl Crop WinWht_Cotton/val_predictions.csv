@@ -1,0 +1,4 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,7_7,Dbl Crop WinWht/Cotton,265,320,258,301,0.5806451612903226,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_7/harvest_summary_all_crops.xlsx
+val,2022,19_18,Dbl Crop WinWht/Cotton,248,350,262,302,0.39215686274509803,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_18/harvest_summary_all_crops.xlsx
+val,2022,5_0,Dbl Crop WinWht/Cotton,265,313,270,302,0.6666666666666666,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_0/harvest_summary_all_crops.xlsx

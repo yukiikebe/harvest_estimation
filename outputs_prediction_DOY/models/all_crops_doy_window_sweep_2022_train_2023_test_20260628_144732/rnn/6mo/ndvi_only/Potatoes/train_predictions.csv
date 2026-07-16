@@ -1,0 +1,3 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,8_11,Potatoes,170,225,173,242,0.7222222222222222,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/8_11/harvest_summary_all_crops.xlsx
+train,2022,5_12,Potatoes,175,290,173,242,0.5726495726495726,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_12/harvest_summary_all_crops.xlsx

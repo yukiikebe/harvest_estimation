@@ -1,0 +1,8 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,10_18,Alfalfa,13,320,149,315,0.5407166123778502,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/10_18/harvest_summary_all_crops.xlsx
+train,2022,3_13,Alfalfa,270,320,215,281,0.10476190476190476,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_13/harvest_summary_all_crops.xlsx
+train,2022,8_6,Alfalfa,185,300,212,322,0.6423357664233577,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/8_6/harvest_summary_all_crops.xlsx
+train,2022,7_1,Alfalfa,225,350,219,329,0.7938931297709924,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_1/harvest_summary_all_crops.xlsx
+train,2022,0_9,Alfalfa,293,313,249,276,0.0,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/0_9/harvest_summary_all_crops.xlsx
+train,2022,11_18,Alfalfa,13,320,140,313,0.5635179153094463,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/11_18/harvest_summary_all_crops.xlsx
+train,2022,4_11,Alfalfa,318,320,217,322,0.01904761904761905,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/4_11/harvest_summary_all_crops.xlsx

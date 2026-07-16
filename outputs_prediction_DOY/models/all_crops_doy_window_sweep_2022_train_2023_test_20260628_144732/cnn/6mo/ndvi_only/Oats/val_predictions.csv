@@ -1,0 +1,5 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,15_1,Oats,190,350,273,330,0.35625,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/15_1/harvest_summary_all_crops.xlsx
+val,2022,5_0,Oats,185,313,245,304,0.4609375,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_0/harvest_summary_all_crops.xlsx
+val,2022,2_0,Oats,185,350,260,319,0.3575757575757576,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/2_0/harvest_summary_all_crops.xlsx
+val,2022,17_3,Oats,260,350,278,336,0.6444444444444445,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_3/harvest_summary_all_crops.xlsx

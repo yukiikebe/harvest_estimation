@@ -1,0 +1,5 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,14_1,Dbl Crop Corn/Soybeans,265,315,226,295,0.33707865168539325,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/14_1/harvest_summary_all_crops.xlsx
+train,2022,17_14,Dbl Crop Corn/Soybeans,260,350,237,295,0.30973451327433627,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_14/harvest_summary_all_crops.xlsx
+train,2022,14_2,Dbl Crop Corn/Soybeans,250,280,222,295,0.410958904109589,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/14_2/harvest_summary_all_crops.xlsx
+train,2022,13_1,Dbl Crop Corn/Soybeans,190,295,210,295,0.8095238095238095,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/13_1/harvest_summary_all_crops.xlsx

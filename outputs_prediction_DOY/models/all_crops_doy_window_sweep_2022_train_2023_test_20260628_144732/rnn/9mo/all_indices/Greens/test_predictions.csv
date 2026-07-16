@@ -1,0 +1,3 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,4_12,Greens,91,360,86,319,0.8321167883211679,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/4_12/harvest_summary_all_crops.xlsx
+test,2023,4_13,Greens,260,293,87,318,0.14285714285714285,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/4_13/harvest_summary_all_crops.xlsx

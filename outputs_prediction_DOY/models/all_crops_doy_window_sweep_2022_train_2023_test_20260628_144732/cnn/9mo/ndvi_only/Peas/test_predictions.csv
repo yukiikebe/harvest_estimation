@@ -1,0 +1,15 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,0_0,Peas,230,363,186,295,0.3672316384180791,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/0_0/harvest_summary_all_crops.xlsx
+test,2023,0_1,Peas,243,363,187,292,0.2784090909090909,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/0_1/harvest_summary_all_crops.xlsx
+test,2023,12_10,Peas,270,305,189,309,0.2916666666666667,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/12_10/harvest_summary_all_crops.xlsx
+test,2023,17_1,Peas,340,345,240,349,0.045871559633027525,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/17_1/harvest_summary_all_crops.xlsx
+test,2023,18_18,Peas,270,345,231,351,0.625,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/18_18/harvest_summary_all_crops.xlsx
+test,2023,18_3,Peas,340,345,270,356,0.05813953488372093,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/18_3/harvest_summary_all_crops.xlsx
+test,2023,18_6,Peas,280,360,273,359,0.9080459770114943,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/18_6/harvest_summary_all_crops.xlsx
+test,2023,19_16,Peas,180,305,204,342,0.6234567901234568,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/19_16/harvest_summary_all_crops.xlsx
+test,2023,19_18,Peas,230,360,227,351,0.9097744360902256,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/19_18/harvest_summary_all_crops.xlsx
+test,2023,19_19,Peas,180,360,219,347,0.7111111111111111,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/19_19/harvest_summary_all_crops.xlsx
+test,2023,3_0,Peas,360,363,319,364,0.06666666666666667,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/3_0/harvest_summary_all_crops.xlsx
+test,2023,5_0,Peas,280,363,195,243,0.0,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_0/harvest_summary_all_crops.xlsx
+test,2023,5_12,Peas,238,290,202,303,0.5148514851485149,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_12/harvest_summary_all_crops.xlsx
+test,2023,6_0,Peas,250,363,202,329,0.4906832298136646,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_0/harvest_summary_all_crops.xlsx

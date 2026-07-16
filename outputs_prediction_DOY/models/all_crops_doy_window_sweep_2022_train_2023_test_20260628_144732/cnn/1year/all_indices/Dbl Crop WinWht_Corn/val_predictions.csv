@@ -1,0 +1,5 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,18_16,Dbl Crop WinWht/Corn,275,350,217,282,0.05263157894736842,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_16/harvest_summary_all_crops.xlsx
+val,2022,11_10,Dbl Crop WinWht/Corn,205,320,224,283,0.5130434782608696,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/11_10/harvest_summary_all_crops.xlsx
+val,2022,19_17,Dbl Crop WinWht/Corn,220,275,209,272,0.7878787878787878,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_17/harvest_summary_all_crops.xlsx
+val,2022,7_7,Dbl Crop WinWht/Corn,185,320,237,313,0.562962962962963,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_7/harvest_summary_all_crops.xlsx

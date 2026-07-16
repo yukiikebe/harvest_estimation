@@ -1,0 +1,8 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,1_0,Sugarcane,290,360,259,344,0.5346534653465347,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/1_0/harvest_summary_all_crops.xlsx
+test,2023,2_0,Sugarcane,230,360,259,344,0.6538461538461539,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/2_0/harvest_summary_all_crops.xlsx
+test,2023,3_0,Sugarcane,308,348,259,344,0.4044943820224719,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/3_0/harvest_summary_all_crops.xlsx
+test,2023,4_0,Sugarcane,260,348,258,344,0.9333333333333333,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/4_0/harvest_summary_all_crops.xlsx
+test,2023,5_0,Sugarcane,260,363,258,344,0.8,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_0/harvest_summary_all_crops.xlsx
+test,2023,7_0,Sugarcane,230,363,258,343,0.6390977443609023,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/7_0/harvest_summary_all_crops.xlsx
+test,2023,9_0,Sugarcane,230,360,258,344,0.6615384615384615,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/9_0/harvest_summary_all_crops.xlsx

@@ -1,0 +1,3 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,18_9,Blueberries,315,350,248,356,0.32407407407407407,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_9/harvest_summary_all_crops.xlsx
+val,2022,16_3,Blueberries,180,350,232,356,0.6704545454545454,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/16_3/harvest_summary_all_crops.xlsx

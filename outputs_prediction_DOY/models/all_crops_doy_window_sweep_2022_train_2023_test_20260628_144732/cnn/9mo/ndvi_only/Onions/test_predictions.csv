@@ -1,0 +1,13 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,5_10,Onions,208,273,189,247,0.4642857142857143,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_10/harvest_summary_all_crops.xlsx
+test,2023,5_11,Onions,210,260,187,244,0.4657534246575342,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_11/harvest_summary_all_crops.xlsx
+test,2023,5_12,Onions,198,230,190,249,0.5423728813559322,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_12/harvest_summary_all_crops.xlsx
+test,2023,6_10,Onions,273,305,194,258,0.0,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_10/harvest_summary_all_crops.xlsx
+test,2023,6_11,Onions,180,360,199,279,0.4444444444444444,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_11/harvest_summary_all_crops.xlsx
+test,2023,6_13,Onions,198,360,198,270,0.4444444444444444,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_13/harvest_summary_all_crops.xlsx
+test,2023,6_15,Onions,243,360,194,260,0.10240963855421686,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_15/harvest_summary_all_crops.xlsx
+test,2023,6_17,Onions,243,290,185,241,0.0,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_17/harvest_summary_all_crops.xlsx
+test,2023,6_9,Onions,208,323,190,247,0.2932330827067669,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_9/harvest_summary_all_crops.xlsx
+test,2023,7_10,Onions,198,360,199,278,0.4876543209876543,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/7_10/harvest_summary_all_crops.xlsx
+test,2023,7_11,Onions,258,308,191,254,0.0,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/7_11/harvest_summary_all_crops.xlsx
+test,2023,8_13,Onions,180,323,196,264,0.4755244755244755,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/8_13/harvest_summary_all_crops.xlsx

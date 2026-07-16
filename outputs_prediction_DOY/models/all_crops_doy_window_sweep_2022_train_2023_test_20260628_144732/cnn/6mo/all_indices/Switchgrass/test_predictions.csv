@@ -1,0 +1,4 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,4_19,Switchgrass,230,360,295,295,0.0,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/4_19/harvest_summary_all_crops.xlsx
+test,2023,6_17,Switchgrass,283,360,289,289,0.0,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_17/harvest_summary_all_crops.xlsx
+test,2023,8_8,Switchgrass,225,348,285,285,0.0,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/8_8/harvest_summary_all_crops.xlsx

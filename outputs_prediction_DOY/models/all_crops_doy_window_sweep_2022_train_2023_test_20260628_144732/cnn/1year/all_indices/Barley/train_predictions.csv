@@ -1,0 +1,2 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,0_5,Barley,263,293,240,265,0.03773584905660377,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/0_5/harvest_summary_all_crops.xlsx

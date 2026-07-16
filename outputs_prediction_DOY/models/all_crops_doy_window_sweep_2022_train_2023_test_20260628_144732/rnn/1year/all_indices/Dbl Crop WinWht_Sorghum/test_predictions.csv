@@ -1,0 +1,5 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,16_2,Dbl Crop WinWht/Sorghum,230,305,246,272,0.3466666666666667,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/16_2/harvest_summary_all_crops.xlsx
+test,2023,17_7,Dbl Crop WinWht/Sorghum,150,205,248,274,0.0,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/17_7/harvest_summary_all_crops.xlsx
+test,2023,18_3,Dbl Crop WinWht/Sorghum,225,345,244,270,0.21666666666666667,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/18_3/harvest_summary_all_crops.xlsx
+test,2023,19_18,Dbl Crop WinWht/Sorghum,280,360,245,271,0.0,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/19_18/harvest_summary_all_crops.xlsx

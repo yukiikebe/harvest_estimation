@@ -1,0 +1,2 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,3_17,Pop or Orn Corn,218,278,207,275,0.8028169014084507,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_17/harvest_summary_all_crops.xlsx

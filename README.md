@@ -1,191 +1,151 @@
-# Crop type segmentation
+# Harvest DOY Estimation
 
-## Environment Setup
+This repository contains the Arkansas harvest day-of-year (DOY) workflow:
 
-1. **Creating the Environment**: Navigate to the code directory in your terminal and create the environment using the provided `.yml` file by executing:
+1. Build tile/crop time-series inputs from Sentinel-2 and CDL data.
+2. Train CNN, RNN, and hybrid models to predict harvest start/end DOY.
+3. Archive the 2022-train/2023-test all-crops model sweep.
 
-        conda env create -f deepsatmodels_env.yml
+## Repository Layout
 
-2. **Activating the Environment**: Activate the newly created environment with:
-
-        source activate deepsatmodels
-
-3. **PyTorch Installation**: Install the required version of PyTorch along with torchvision and torchaudio by running:
-
-        conda install pytorch torchvision torchaudio cudatoolkit=10.1 -c pytorch-nightly
-## Download data
-`python /data/Arkansas/Download.py`
-
-## Preprocessing data
-Please check file `data/Arkansas/preprocessing.py`. 
-```
-cd data/Arkansas/
-python preprocessing.py
+```text
+configs/Arkansas/              YAML configs for CDL labels, harvest windows, and DOY input windows
+create_doy_prediction_input/   Sentinel-2/CDL processing pipeline that creates model inputs
+doy_prediction/                DOY model training, inference, aggregation, and tests
+scripts/                       Reproducible run scripts
+outputs_prediction_DOY/models/ Archived trained model sweep
 ```
 
-### Config
+The archived model run is:
 
-**Config path:** Please set the config path for `satellite_image_dir` and `output_dir`. The output data after running preprocessing will be stored at `output_dir`
-
-```
-satellite_image_dir = "/data/datasets/satellite/raw_arkansas_2023/2023_all"
-output_dir = "/data/datasets/satellite/AR23_processed"
+```text
+outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732
 ```
 
-**Config class ID:**  Please make sure that the file `configs/Arkansas/cdl.yaml` is available. This is the correctponsding the class_ID and the name of class (crop type)
+Model checkpoints (`*.pt`, `*.pth`) are tracked with Git LFS.
 
-```
-num2class:
-  0 : "Background"
-  ... 
-  ...
-  ...
-  254 : "Dbl Crop Barley/Soybeans"
+## Environment
+
+```bash
+conda env create -f deepsatmodels_env_latest.yml
+conda activate deepsatmodels_env
 ```
 
-**Config the specipice bands and number image per moths:** Please make sure that the file `configs/Arkansas/arkansas_data.yaml` is available. 
+If the environment already exists, set `CONDA_ENV_PREFIX` or `PYTHON` when running scripts.
 
-```
-sample_requirements:
-  1: 1  # January
-  2: 1  # February
-  3: 1  # March
-  4: 2  # April
-  5: 2  # May
-  6: 2  # June
-  7: 2  # July
-  8: 2  # August
-  9: 2  # September
-  10: 1 # October
-  11: 1 # November
-  12: 1  # December
+## Input Data
 
-bands:
-    "10m": ["B2", "B3", "B4", "B8"] # 10m resolution
-    "20m": ["B5", "B6", "B7", "B8A", "B11", "B12"] # 20m resolution
-    "SCL": ["SCL"] # 20m resolution
+The input-generation scripts expect yearly Sentinel-2 tile directories such as:
+
+```text
+/home/yikebe/AR_sentinel2/2022_AR/
+/home/yikebe/AR_sentinel2/2023_AR/
 ```
 
+Override the base path with:
 
-
-The data structure for `satellite_image_dir` looks like that:
-
-```
-├── 0_0
-    ├── 2023-01-03
-        ├── 10m_rgb_2023-01-03.tif
-        ├── B11_2023-01-03.tif
-        ├── B12_2023-01-03.tif
-        ├── B2_2023-01-03.tif
-        ├── B3_2023-01-03.tif
-        ├── B4_2023-01-03.tif
-        ├── B5_2023-01-03.tif
-        ├── B6_2023-01-03.tif
-        ├── B7_2023-01-03.tif
-        ├── B8_2023-01-03.tif
-        ├── B8A_2023-01-03.tif
-        ├── SCL_2023-01-03.tif
-        ├── TCI_2023-01-03.jpg
-        ├── TCI_B_2023-01-03.tif
-        ├── TCI_G_2023-01-03.tif
-        └── TCI_R_2023-01-03.tif
-    ├── ...
-    ├── 2023-12-27
-    └── cdl.tif
-├── 0_1
-├── ...
-└── 19_19
-
+```bash
+export DATASET_BASE=/path/to/AR_sentinel2
 ```
 
-### Visualize
+Each yearly directory should contain tile folders such as `0_0`, `0_1`, ..., with date folders and `cdl.tif`.
 
-The function `visual_crop_distribution` will be used for the feature Visualize crop distribution. After calling this function, it will visualize crop distribution.
+## Build DOY Prediction Inputs
 
-* `visual_crop_distribution(satellite_image_dir, output_dir)`
-![Crop Distribution](doc/crop_distribution.png)
-### Preprocessing data
+Run one year:
 
-The function `preprocess_satellite` processes large data. The input is the `satellite_image_dir` path as structured above. The output will be tiled data saved in a pickle file.
-
-
-* For each pickle file, the format is:
-    ```
-    pickle_data = {
-        'img': series_image, 
-        'doy': doys,
-        'labels': np.array(labels, dtype=np.uint8),
-    }
-    ```
-* The API looks like `preprocess_satellite(satellite_image_dir, pickle_dir, num_cpus=8)`. Please change `num_cpus` based on your machine's resources.
-
-### Split data
-After run preprocessing data, the processed data will be stored, we need to split to `train/val`, we use random sampling based on the region. The figure bellow show the data for Arkansas region, the blue for validation and the green for training data. 
-
-* Noted: In the future, we can change the way to do sampling data    
-    ![grid_image](doc/grid_image.png)
-
-Here is the log after running visual data and preprocessing data.
-![preprocessing](doc/preprocessing.png)
-
-The structure output data:
-
+```bash
+scripts/run_prepare_doy_inputs_parallel.sh 2022 8
 ```
-├── crop_distribution.png
-├── fold-paths
-    ├── train_sub_data.csv
-    └── val_sub_data.csv
-└── pickle24x24
-    ├── 0_0
-        ├── 984_744.pickle
-        ├── ...
-        ├── ...
-        ├── ...
-        └── 984_840.pickle
-    ├── 0_1
-    ├── ...
-    └── 19_19
 
+Run 2022 and 2023:
+
+```bash
+scripts/run_prepare_doy_inputs_2022_2023.sh 8
 ```
-## Training models
-### Config
-Please check file `/configs/Arkansas/TSViT_AR23_focal.yaml` to set the parameter for training model such as `num_classes`, `batch_size`, `lr`, `save_path`, `etc ..`
 
-Setup the number of GPUs:  In `/TSViT_AR23_focal.yaml`, change `device_id` by the GPU_ID you would like to train. For example, if you would like to train on the GPU 1, 2, 3, 4. Simplyfy set evice_id: [1,2,3,4]
+The generated yearly model inputs are written under:
 
-Set up the class: Just configure the number of classes you would like to train and merge in `configs/Arkansas/arkansas_data.yaml`. For example, below, this trains on 2 classes, and for each class, we have a list of crops.
-
-
+```text
+outputs/2022_AR
+outputs/2023_AR
 ```
-classes:
-  0:
-    0: "Background"
-    59: "Sod/Grass Seed"
-    ...
-    62: "Pasture/Grass"
 
-  1: 
-    1: "Corn"
-    2: "Cotton"
-    ...
-    10: "Pea
+These intermediate outputs are intentionally ignored by Git.
+
+## Train and Evaluate DOY Models
+
+Run the all-crops CNN/RNN/hybrid sweep:
+
+```bash
+WANDB_MODE=offline scripts/run_all_crops_doy_window_sweep.sh
 ```
-To train the model, please run: `python train_and_eval/segmentation_training_transf.py --config configs/Arkansas/TSViT_AR23_focal.yaml`
 
-## Evalution
+Useful overrides:
 
-Configure the `load_from_checkpoint` in the file `configs/Arkansas/TSViT_AR23_infer.yaml`. Example:
-
+```bash
+DEVICE=cuda
+EPOCHS=40
+BATCH_SIZE=32
+OUTPUTS_ROOT=/path/to/outputs
+RESULTS_ROOT=/path/to/results
+TRAIN_MODELS="cnn rnn hybrid"
+FEATURE_SETS="all_indices ndvi_only"
+WANDB_ENABLED=0
 ```
-CHECKPOINT:
-  load_from_checkpoint: './models/saved_models/
+
+Standalone scripts are also available:
+
+```bash
+scripts/run_rnn_window_sweep.sh
+scripts/run_hybrid_window_sweep.sh
 ```
-To validation the model, please run: 
-`python train_and_eval/validation_AR24.py --config configs/Arkansas/TSViT_AR23_infer.yaml`
 
-Note: Due to the padding in data preprocessing, the metric may differ when compared to the true value.
+## Direct Module Usage
 
-## Inference and Visualzation
-After training and obtaining the checkpoint, we can visualize the result with this command:
+Prepare one year:
 
-`python train_and_eval/inference_AR24.py`
+```bash
+python -m create_doy_prediction_input.main \
+  --dataset-root /home/yikebe/AR_sentinel2/2022_AR \
+  --cdl-yaml configs/Arkansas/cdl.yaml \
+  --gt-windows-yaml configs/Arkansas/gt_windows.yaml \
+  --seeding-config-yaml configs/Arkansas/seeding_config.yaml \
+  --output-root outputs/2022_AR \
+  --all-crops \
+  --summarize \
+  --cleanup-npy
+```
+
+Train one crop/model:
+
+```bash
+python -m doy_prediction.train_tile_hybrid \
+  --outputs-root outputs \
+  --crops Rice \
+  --feature-set all_indices \
+  --train-years 2022 \
+  --test-years 2023 \
+  --save-dir outputs_prediction_DOY/models/example_hybrid \
+  --epochs 40 \
+  --batch-size 32 \
+  --device cuda
+```
+
+Run hybrid inference from trained CNN/RNN checkpoints:
+
+```bash
+python -m doy_prediction.predict_tile_hybrid_infer \
+  --inputs outputs/2023_AR \
+  --cnn-checkpoints outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732/cnn/1year \
+  --rnn-checkpoints outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732/rnn/1year \
+  --feature-set all_indices \
+  --out-csv predictions.csv \
+  --device cuda
+```
+
+## Tests
+
+```bash
+pytest doy_prediction/tests
+```

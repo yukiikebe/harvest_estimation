@@ -21,6 +21,7 @@ from doy_prediction.tile_cnn_data import (
 from doy_prediction.metrics import harvest_window_iou, maybe_harvest_window_iou
 from doy_prediction.train_tile_cnn import evaluate_model
 from doy_prediction.tile_cnn_model import TileCNNRegressor, normalized_to_doy
+from doy_prediction.tile_hybrid_model import TileCNNRNNHybridRegressor
 from doy_prediction.tile_rnn_model import TileRNNRegressor
 
 
@@ -201,6 +202,20 @@ Corn:
         self.assertEqual(model.rnn_layers[0].hidden_size, 8)
         self.assertEqual(model.rnn_layers[1].hidden_size, 16)
         self.assertEqual(model.rnn_layers[2].hidden_size, 32)
+
+    def test_hybrid_model_forward_uses_cnn_start_and_rnn_end_branches(self) -> None:
+        model = TileCNNRNNHybridRegressor(
+            in_channels=4,
+            cnn_hidden_channels=(8, 16, 32),
+            rnn_hidden_sizes=(8, 16, 32),
+        )
+        x = torch.randn(3, 4, 73)
+
+        out = model(x)
+
+        self.assertEqual(tuple(out.shape), (3, 2))
+        self.assertTrue(torch.all(out >= 0.0))
+        self.assertTrue(torch.all(out <= 1.0))
 
     def test_harvest_window_iou(self) -> None:
         self.assertAlmostEqual(harvest_window_iou(60, 110, 50, 100), 40.0 / 60.0)

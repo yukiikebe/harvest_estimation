@@ -1,0 +1,6 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,13_1,Dbl Crop Corn/Soybeans,210,275,234,315,0.3904761904761905,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/13_1/harvest_summary_all_crops.xlsx
+test,2023,14_1,Dbl Crop Corn/Soybeans,225,280,256,339,0.21052631578947367,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/14_1/harvest_summary_all_crops.xlsx
+test,2023,14_2,Dbl Crop Corn/Soybeans,230,290,238,319,0.5842696629213483,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/14_2/harvest_summary_all_crops.xlsx
+test,2023,15_3,Dbl Crop Corn/Soybeans,260,305,251,333,0.5487804878048781,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/15_3/harvest_summary_all_crops.xlsx
+test,2023,17_14,Dbl Crop Corn/Soybeans,230,280,223,295,0.6944444444444444,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/17_14/harvest_summary_all_crops.xlsx

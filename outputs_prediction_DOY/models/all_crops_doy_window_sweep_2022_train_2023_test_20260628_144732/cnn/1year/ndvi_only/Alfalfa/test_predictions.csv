@@ -1,0 +1,13 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,0_9,Alfalfa,108,298,263,294,0.1631578947368421,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/0_9/harvest_summary_all_crops.xlsx
+test,2023,10_18,Alfalfa,260,293,139,323,0.1793478260869565,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/10_18/harvest_summary_all_crops.xlsx
+test,2023,11_18,Alfalfa,260,340,144,321,0.3112244897959184,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/11_18/harvest_summary_all_crops.xlsx
+test,2023,2_15,Alfalfa,88,348,250,300,0.19230769230769232,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/2_15/harvest_summary_all_crops.xlsx
+test,2023,3_13,Alfalfa,280,305,232,291,0.1506849315068493,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/3_13/harvest_summary_all_crops.xlsx
+test,2023,4_11,Alfalfa,238,360,204,321,0.532051282051282,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/4_11/harvest_summary_all_crops.xlsx
+test,2023,6_7,Alfalfa,238,308,184,314,0.5384615384615384,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/6_7/harvest_summary_all_crops.xlsx
+test,2023,7_1,Alfalfa,275,360,217,320,0.3146853146853147,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/7_1/harvest_summary_all_crops.xlsx
+test,2023,7_3,Alfalfa,213,363,169,309,0.4948453608247423,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/7_3/harvest_summary_all_crops.xlsx
+test,2023,8_19,Alfalfa,233,345,167,323,0.5056179775280899,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/8_19/harvest_summary_all_crops.xlsx
+test,2023,8_6,Alfalfa,210,293,209,310,0.8217821782178217,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/8_6/harvest_summary_all_crops.xlsx
+test,2023,9_19,Alfalfa,148,293,166,322,0.7298850574712644,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/9_19/harvest_summary_all_crops.xlsx

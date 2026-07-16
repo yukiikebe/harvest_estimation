@@ -1,0 +1,11 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,6_11,Onions,203,300,199,309,0.8818181818181818,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_11/harvest_summary_all_crops.xlsx
+train,2022,7_11,Onions,185,273,184,309,0.704,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_11/harvest_summary_all_crops.xlsx
+train,2022,6_10,Onions,185,300,184,309,0.92,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_10/harvest_summary_all_crops.xlsx
+train,2022,7_10,Onions,195,300,198,309,0.8947368421052632,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_10/harvest_summary_all_crops.xlsx
+train,2022,5_12,Onions,188,258,185,309,0.5645161290322581,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_12/harvest_summary_all_crops.xlsx
+train,2022,8_13,Onions,203,318,199,309,0.8907563025210085,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/8_13/harvest_summary_all_crops.xlsx
+train,2022,6_15,Onions,228,290,187,309,0.5081967213114754,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_15/harvest_summary_all_crops.xlsx
+train,2022,5_11,Onions,175,288,183,309,0.7835820895522388,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_11/harvest_summary_all_crops.xlsx
+train,2022,6_13,Onions,318,320,200,309,0.0,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_13/harvest_summary_all_crops.xlsx
+train,2022,5_10,Onions,180,300,186,309,0.8837209302325582,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_10/harvest_summary_all_crops.xlsx

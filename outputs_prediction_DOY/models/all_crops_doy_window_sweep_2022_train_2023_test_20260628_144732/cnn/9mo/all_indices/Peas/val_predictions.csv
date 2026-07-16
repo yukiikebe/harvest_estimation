@@ -1,0 +1,2 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,19_18,Peas,260,350,209,342,0.5815602836879432,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_18/harvest_summary_all_crops.xlsx

@@ -1,0 +1,2 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,4_12,Greens,91,320,132,318,0.8122270742358079,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/4_12/harvest_summary_all_crops.xlsx

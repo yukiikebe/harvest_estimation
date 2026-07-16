@@ -1,0 +1,10 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,19_8,Sweet Potatoes,227,350,255,330,0.6097560975609756,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_8/harvest_summary_all_crops.xlsx
+val,2022,19_16,Sweet Potatoes,275,315,257,333,0.5263157894736842,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_16/harvest_summary_all_crops.xlsx
+val,2022,17_7,Sweet Potatoes,315,350,256,332,0.18085106382978725,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_7/harvest_summary_all_crops.xlsx
+val,2022,17_10,Sweet Potatoes,270,300,255,331,0.39473684210526316,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_10/harvest_summary_all_crops.xlsx
+val,2022,18_6,Sweet Potatoes,275,315,257,332,0.5333333333333333,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_6/harvest_summary_all_crops.xlsx
+val,2022,3_2,Sweet Potatoes,228,313,257,333,0.5333333333333333,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_2/harvest_summary_all_crops.xlsx
+val,2022,9_17,Sweet Potatoes,258,320,257,332,0.8266666666666667,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/9_17/harvest_summary_all_crops.xlsx
+val,2022,15_2,Sweet Potatoes,270,350,256,331,0.648936170212766,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/15_2/harvest_summary_all_crops.xlsx
+val,2022,3_4,Sweet Potatoes,228,290,255,331,0.33980582524271846,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_4/harvest_summary_all_crops.xlsx

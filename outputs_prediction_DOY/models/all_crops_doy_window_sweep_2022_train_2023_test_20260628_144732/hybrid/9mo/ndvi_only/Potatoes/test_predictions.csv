@@ -1,0 +1,4 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+test,2023,5_12,Potatoes,210,290,171,256,0.3865546218487395,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/5_12/harvest_summary_all_crops.xlsx
+test,2023,7_11,Potatoes,210,360,171,256,0.24338624338624337,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/7_11/harvest_summary_all_crops.xlsx
+test,2023,8_11,Potatoes,158,360,170,256,0.42574257425742573,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2023_AR/8_11/harvest_summary_all_crops.xlsx

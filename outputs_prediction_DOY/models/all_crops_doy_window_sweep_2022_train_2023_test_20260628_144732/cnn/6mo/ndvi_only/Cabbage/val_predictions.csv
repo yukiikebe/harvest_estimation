@@ -1,0 +1,5 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,1_5,Cabbage,193,313,195,305,0.9166666666666666,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/1_5/harvest_summary_all_crops.xlsx
+val,2022,1_8,Cabbage,173,313,181,292,0.7928571428571428,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/1_8/harvest_summary_all_crops.xlsx
+val,2022,0_8,Cabbage,208,313,173,297,0.6357142857142857,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/0_8/harvest_summary_all_crops.xlsx
+val,2022,3_2,Cabbage,185,350,236,336,0.6060606060606061,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_2/harvest_summary_all_crops.xlsx

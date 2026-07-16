@@ -1,0 +1,10 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,19_11,Millet,265,350,253,333,0.7010309278350515,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_11/harvest_summary_all_crops.xlsx
+val,2022,12_3,Millet,255,350,242,332,0.7129629629629629,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/12_3/harvest_summary_all_crops.xlsx
+val,2022,17_4,Millet,280,350,243,331,0.4766355140186916,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_4/harvest_summary_all_crops.xlsx
+val,2022,10_14,Millet,318,320,184,294,0.0,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/10_14/harvest_summary_all_crops.xlsx
+val,2022,4_13,Millet,228,320,196,298,0.5645161290322581,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/4_13/harvest_summary_all_crops.xlsx
+val,2022,3_11,Millet,290,320,203,306,0.13675213675213677,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_11/harvest_summary_all_crops.xlsx
+val,2022,13_3,Millet,270,350,258,341,0.7717391304347826,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/13_3/harvest_summary_all_crops.xlsx
+val,2022,15_3,Millet,265,300,257,336,0.4430379746835443,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/15_3/harvest_summary_all_crops.xlsx
+val,2022,17_14,Millet,225,350,250,334,0.672,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_14/harvest_summary_all_crops.xlsx

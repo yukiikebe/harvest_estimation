@@ -1,0 +1,9 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,7_12,Sunflower,228,320,248,312,0.6956521739130435,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_12/harvest_summary_all_crops.xlsx
+val,2022,17_6,Sunflower,200,275,250,339,0.17985611510791366,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_6/harvest_summary_all_crops.xlsx
+val,2022,6_18,Sunflower,313,320,285,316,0.08571428571428572,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_18/harvest_summary_all_crops.xlsx
+val,2022,6_8,Sunflower,228,285,254,313,0.36470588235294116,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_8/harvest_summary_all_crops.xlsx
+val,2022,4_1,Sunflower,265,285,228,319,0.21978021978021978,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/4_1/harvest_summary_all_crops.xlsx
+val,2022,17_16,Sunflower,255,275,251,340,0.2247191011235955,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_16/harvest_summary_all_crops.xlsx
+val,2022,6_9,Sunflower,283,320,255,314,0.47692307692307695,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_9/harvest_summary_all_crops.xlsx
+val,2022,16_5,Sunflower,315,350,240,331,0.14545454545454545,ndvi_only,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/16_5/harvest_summary_all_crops.xlsx

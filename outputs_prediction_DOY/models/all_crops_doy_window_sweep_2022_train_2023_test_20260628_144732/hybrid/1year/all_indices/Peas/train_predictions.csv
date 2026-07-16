@@ -1,0 +1,14 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+train,2022,5_0,Peas,193,220,178,341,0.1656441717791411,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_0/harvest_summary_all_crops.xlsx
+train,2022,0_1,Peas,293,313,168,341,0.11560693641618497,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/0_1/harvest_summary_all_crops.xlsx
+train,2022,18_6,Peas,315,350,264,341,0.3023255813953488,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_6/harvest_summary_all_crops.xlsx
+train,2022,18_3,Peas,280,350,245,341,0.580952380952381,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_3/harvest_summary_all_crops.xlsx
+train,2022,19_19,Peas,180,350,166,341,0.875,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_19/harvest_summary_all_crops.xlsx
+train,2022,12_10,Peas,265,350,195,341,0.49032258064516127,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/12_10/harvest_summary_all_crops.xlsx
+train,2022,6_0,Peas,185,350,165,341,0.8432432432432433,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/6_0/harvest_summary_all_crops.xlsx
+train,2022,17_1,Peas,295,350,196,341,0.2987012987012987,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/17_1/harvest_summary_all_crops.xlsx
+train,2022,5_12,Peas,208,318,184,341,0.7006369426751592,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/5_12/harvest_summary_all_crops.xlsx
+train,2022,0_0,Peas,140,313,167,341,0.7263681592039801,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/0_0/harvest_summary_all_crops.xlsx
+train,2022,3_0,Peas,293,350,248,341,0.47058823529411764,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_0/harvest_summary_all_crops.xlsx
+train,2022,19_16,Peas,175,320,158,341,0.7923497267759563,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_16/harvest_summary_all_crops.xlsx
+train,2022,18_18,Peas,180,350,165,341,0.8702702702702703,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/18_18/harvest_summary_all_crops.xlsx

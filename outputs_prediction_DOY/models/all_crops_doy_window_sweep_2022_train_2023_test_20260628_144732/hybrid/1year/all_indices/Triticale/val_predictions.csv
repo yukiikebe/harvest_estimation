@@ -1,0 +1,4 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,16_12,Triticale,265,350,236,308,0.37719298245614036,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/16_12/harvest_summary_all_crops.xlsx
+val,2022,15_16,Triticale,260,320,228,308,0.5217391304347826,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/15_16/harvest_summary_all_crops.xlsx
+val,2022,14_17,Triticale,260,320,214,308,0.4528301886792453,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/14_17/harvest_summary_all_crops.xlsx

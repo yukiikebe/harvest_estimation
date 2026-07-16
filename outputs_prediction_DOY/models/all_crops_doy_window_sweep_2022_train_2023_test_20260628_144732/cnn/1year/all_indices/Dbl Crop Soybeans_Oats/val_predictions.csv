@@ -1,0 +1,7 @@
+split,year,tile,crop,true_start_doy,true_end_doy,pred_start_doy,pred_end_doy,window_iou,feature_set,source_workbook
+val,2022,7_12,Dbl Crop Soybeans/Oats,185,320,187,315,0.9481481481481482,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/7_12/harvest_summary_all_crops.xlsx
+val,2022,4_8,Dbl Crop Soybeans/Oats,255,320,194,321,0.5118110236220472,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/4_8/harvest_summary_all_crops.xlsx
+val,2022,8_11,Dbl Crop Soybeans/Oats,185,320,184,328,0.9375,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/8_11/harvest_summary_all_crops.xlsx
+val,2022,19_17,Dbl Crop Soybeans/Oats,275,350,173,315,0.22598870056497175,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/19_17/harvest_summary_all_crops.xlsx
+val,2022,3_2,Dbl Crop Soybeans/Oats,208,350,182,308,0.5952380952380952,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/3_2/harvest_summary_all_crops.xlsx
+val,2022,4_14,Dbl Crop Soybeans/Oats,188,320,197,308,0.8409090909090909,all_indices,/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs/2022_AR/4_14/harvest_summary_all_crops.xlsx

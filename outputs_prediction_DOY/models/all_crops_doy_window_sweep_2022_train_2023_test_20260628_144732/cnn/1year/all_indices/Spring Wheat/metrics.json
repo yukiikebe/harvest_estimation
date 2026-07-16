@@ -1,0 +1,435 @@
+{
+  "crop": "Spring Wheat",
+  "feature_set": "all_indices",
+  "train_years": [
+    2022
+  ],
+  "test_years": [
+    2023
+  ],
+  "num_train": 1,
+  "num_val": 0,
+  "num_test": 1,
+  "model_name": "cnn",
+  "model_config": {},
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.31560081243515015,
+      "test_mae_start": 103.0,
+      "test_mae_end": 170.0,
+      "test_mae_mean": 136.5,
+      "test_mae_window": 67.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.2972378730773926,
+      "test_mae_start": 102.0,
+      "test_mae_end": 169.0,
+      "test_mae_mean": 135.5,
+      "test_mae_window": 67.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.27448251843452454,
+      "test_mae_start": 101.0,
+      "test_mae_end": 169.0,
+      "test_mae_mean": 135.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.2648313045501709,
+      "test_mae_start": 100.0,
+      "test_mae_end": 168.0,
+      "test_mae_mean": 134.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.27547332644462585,
+      "test_mae_start": 99.0,
+      "test_mae_end": 167.0,
+      "test_mae_mean": 133.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.24910229444503784,
+      "test_mae_start": 98.0,
+      "test_mae_end": 166.0,
+      "test_mae_mean": 132.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.2128322422504425,
+      "test_mae_start": 97.0,
+      "test_mae_end": 165.0,
+      "test_mae_mean": 131.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.22388741374015808,
+      "test_mae_start": 96.0,
+      "test_mae_end": 164.0,
+      "test_mae_mean": 130.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.18671077489852905,
+      "test_mae_start": 94.0,
+      "test_mae_end": 162.0,
+      "test_mae_mean": 128.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.22818824648857117,
+      "test_mae_start": 92.0,
+      "test_mae_end": 161.0,
+      "test_mae_mean": 126.5,
+      "test_mae_window": 69.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.1795649230480194,
+      "test_mae_start": 90.0,
+      "test_mae_end": 159.0,
+      "test_mae_mean": 124.5,
+      "test_mae_window": 69.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.17800557613372803,
+      "test_mae_start": 88.0,
+      "test_mae_end": 157.0,
+      "test_mae_mean": 122.5,
+      "test_mae_window": 69.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.14367377758026123,
+      "test_mae_start": 86.0,
+      "test_mae_end": 155.0,
+      "test_mae_mean": 120.5,
+      "test_mae_window": 69.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.15279021859169006,
+      "test_mae_start": 83.0,
+      "test_mae_end": 153.0,
+      "test_mae_mean": 118.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.12008550763130188,
+      "test_mae_start": 81.0,
+      "test_mae_end": 151.0,
+      "test_mae_mean": 116.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.20116358995437622,
+      "test_mae_start": 77.0,
+      "test_mae_end": 147.0,
+      "test_mae_mean": 112.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.09671097993850708,
+      "test_mae_start": 75.0,
+      "test_mae_end": 145.0,
+      "test_mae_mean": 110.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.1457039713859558,
+      "test_mae_start": 72.0,
+      "test_mae_end": 142.0,
+      "test_mae_mean": 107.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.1080496609210968,
+      "test_mae_start": 69.0,
+      "test_mae_end": 139.0,
+      "test_mae_mean": 104.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.11757579445838928,
+      "test_mae_start": 66.0,
+      "test_mae_end": 136.0,
+      "test_mae_mean": 101.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.06682378053665161,
+      "test_mae_start": 63.0,
+      "test_mae_end": 133.0,
+      "test_mae_mean": 98.0,
+      "test_mae_window": 70.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.05932062864303589,
+      "test_mae_start": 60.0,
+      "test_mae_end": 129.0,
+      "test_mae_mean": 94.5,
+      "test_mae_window": 69.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.13079765439033508,
+      "test_mae_start": 56.0,
+      "test_mae_end": 125.0,
+      "test_mae_mean": 90.5,
+      "test_mae_window": 69.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.0804382860660553,
+      "test_mae_start": 53.0,
+      "test_mae_end": 121.0,
+      "test_mae_mean": 87.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.07978934049606323,
+      "test_mae_start": 49.0,
+      "test_mae_end": 117.0,
+      "test_mae_mean": 83.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.09792542457580566,
+      "test_mae_start": 45.0,
+      "test_mae_end": 113.0,
+      "test_mae_mean": 79.0,
+      "test_mae_window": 68.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.05485647916793823,
+      "test_mae_start": 41.0,
+      "test_mae_end": 108.0,
+      "test_mae_mean": 74.5,
+      "test_mae_window": 67.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.10530802607536316,
+      "test_mae_start": 38.0,
+      "test_mae_end": 103.0,
+      "test_mae_mean": 70.5,
+      "test_mae_window": 65.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.052025824785232544,
+      "test_mae_start": 35.0,
+      "test_mae_end": 98.0,
+      "test_mae_mean": 66.5,
+      "test_mae_window": 63.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.06888118386268616,
+      "test_mae_start": 32.0,
+      "test_mae_end": 93.0,
+      "test_mae_mean": 62.5,
+      "test_mae_window": 61.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.06984728574752808,
+      "test_mae_start": 30.0,
+      "test_mae_end": 89.0,
+      "test_mae_mean": 59.5,
+      "test_mae_window": 59.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.043082594871520996,
+      "test_mae_start": 28.0,
+      "test_mae_end": 85.0,
+      "test_mae_mean": 56.5,
+      "test_mae_window": 57.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 33,
+      "train_loss": 0.05166494846343994,
+      "test_mae_start": 27.0,
+      "test_mae_end": 82.0,
+      "test_mae_mean": 54.5,
+      "test_mae_window": 55.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 34,
+      "train_loss": 0.07593682408332825,
+      "test_mae_start": 27.0,
+      "test_mae_end": 79.0,
+      "test_mae_mean": 53.0,
+      "test_mae_window": 52.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 35,
+      "train_loss": 0.07318973541259766,
+      "test_mae_start": 26.0,
+      "test_mae_end": 76.0,
+      "test_mae_mean": 51.0,
+      "test_mae_window": 50.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 36,
+      "train_loss": 0.04789215326309204,
+      "test_mae_start": 26.0,
+      "test_mae_end": 74.0,
+      "test_mae_mean": 50.0,
+      "test_mae_window": 48.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 37,
+      "train_loss": 0.029118388891220093,
+      "test_mae_start": 27.0,
+      "test_mae_end": 72.0,
+      "test_mae_mean": 49.5,
+      "test_mae_window": 45.0,
+      "test_iou_mean": 0.0,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 38,
+      "train_loss": 0.0650726854801178,
+      "test_mae_start": 28.0,
+      "test_mae_end": 69.0,
+      "test_mae_mean": 48.5,
+      "test_mae_window": 41.0,
+      "test_iou_mean": 0.010204081423580647,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.015766233205795288,
+      "test_mae_start": 29.0,
+      "test_mae_end": 67.0,
+      "test_mae_mean": 48.0,
+      "test_mae_window": 38.0,
+      "test_iou_mean": 0.03030303120613098,
+      "test_ordered_pct": 1.0
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.024326801300048828,
+      "test_mae_start": 31.0,
+      "test_mae_end": 64.0,
+      "test_mae_mean": 47.5,
+      "test_mae_window": 33.0,
+      "test_iou_mean": 0.059405941516160965,
+      "test_ordered_pct": 1.0
+    }
+  ],
+  "train_metrics": {
+    "mae_start": 15.0,
+    "mae_end": 33.0,
+    "mae_mean": 24.0,
+    "mae_window": 18.0,
+    "iou_mean": 0.3142857253551483,
+    "ordered_pct": 1.0
+  },
+  "val_metrics": {},
+  "test_metrics": {
+    "mae_start": 31.0,
+    "mae_end": 64.0,
+    "mae_mean": 47.5,
+    "mae_window": 33.0,
+    "iou_mean": 0.059405941516160965,
+    "ordered_pct": 1.0
+  },
+  "checkpoint": "/scrfs/storage/yikebe/home/DeepSatModels_updated/outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732/cnn/1year/all_indices/Spring Wheat/best_model.pt"
+}
