@@ -4,16 +4,12 @@ set -u
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
-CONDA_ENV_NAME="${CONDA_ENV_NAME:-deepsatmodels_env}"
-CONDA_ENV_PREFIX="${CONDA_ENV_PREFIX:-/home/yikebe/.conda/envs/$CONDA_ENV_NAME}"
-if [[ ! -x "$CONDA_ENV_PREFIX/bin/python" ]]; then
-  echo "Conda environment python not found: $CONDA_ENV_PREFIX/bin/python" >&2
+CONDA_ENV_PREFIX="${CONDA_ENV_PREFIX:-${CONDA_PREFIX:-}}"
+PYTHON="${PYTHON:-${CONDA_ENV_PREFIX:+${CONDA_ENV_PREFIX}/bin/python}}"
+if [[ -z "${PYTHON}" || ! -x "${PYTHON}" ]]; then
+  echo "Python not found. Activate the project Conda environment or set PYTHON." >&2
   exit 1
 fi
-export CONDA_DEFAULT_ENV="$CONDA_ENV_NAME"
-export CONDA_PREFIX="$CONDA_ENV_PREFIX"
-export PATH="$CONDA_ENV_PREFIX/bin:$PATH"
-PYTHON="${PYTHON:-$CONDA_ENV_PREFIX/bin/python}"
 
 RUN_STAMP="${RUN_STAMP:-$(date +%Y%m%d_%H%M%S)}"
 RUN_LABEL="${RUN_LABEL:-all_crops_doy_window_sweep_2022_train_2023_test_${RUN_STAMP}}"

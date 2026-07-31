@@ -62,6 +62,9 @@ outputs_prediction_DOY/
 /outputs_prediction_DOY/models/*
 !outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732/
 !outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732/**
+!outputs_prediction_DOY/inference_2022train_current_2025/
+!outputs_prediction_DOY/inference_2022train_current_2025/**
 
 # Keep summary workbooks inside the archived model run.
 !outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732/**/*.xlsx
+scripts/run_ar_inference_2025_parallel.sh

@@ -2,28 +2,35 @@
 from __future__ import annotations
 
 import os
-import csv
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import rasterio
 from rasterio.enums import Resampling
-import matplotlib.pyplot as plt
 
 from create_doy_prediction_input.config import Config
-from create_doy_prediction_input.log import PipelineLogger
-from create_doy_prediction_input.utils.raster_io import (
-    read_and_resample_band,
-    save_resampled_plot_mask_once,
-    ensure_dir,
-)
-from create_doy_prediction_input.utils.metrics import calculate_ndvi, calculate_ndwi, calculate_evi, IoU_calculation
-from create_doy_prediction_input.utils.plot_and_csv import _plot_harvest_detection, _write_crop_summary_csv
 from create_doy_prediction_input.harvest_detector import HarvestDetector
 from create_doy_prediction_input.harvest_voter import HarvestVoter
+from create_doy_prediction_input.log import PipelineLogger
 from create_doy_prediction_input.seeding_estimator import SeedingEstimator
 from create_doy_prediction_input.summary import summarize_global_crop_outputs
+from create_doy_prediction_input.utils.metrics import (
+    IoU_calculation,
+    calculate_evi,
+    calculate_ndvi,
+    calculate_ndwi,
+)
+from create_doy_prediction_input.utils.plot_and_csv import (
+    _plot_harvest_detection,
+    _write_crop_summary_csv,
+)
+from create_doy_prediction_input.utils.raster_io import (
+    ensure_dir,
+    read_and_resample_band,
+    save_resampled_plot_mask_once,
+)
 
 
 class GlobalAnalyzer:
@@ -135,7 +142,10 @@ class GlobalAnalyzer:
                     else:
                         scl_valid = np.ones_like(red, dtype=bool)
 
-                    timestamp = datetime.strptime(ts_folder, "%Y-%m-%d")
+                    timestamp = datetime.strptime(  # noqa: DTZ007 - folder names are dates
+                        ts_folder,
+                        "%Y-%m-%d",
+                    )
                     all_timestamps.append(timestamp)
 
                     # ---- 4) loop crops for this timestamp (same as original) ----
@@ -169,24 +179,30 @@ class GlobalAnalyzer:
                         all_crops.add(int(crop_label_val))
                         data_by_crop_and_time.setdefault(int(crop_label_val), {})[timestamp] = (ndvi_val, ndwi_val, evi_val)
 
-                        # save per-timestamp maps (npy + png) (same logic as original)
-                        for index_data, index_val, index_dir, cmap in [
-                            (ndvi, ndvi_val, ndvi_dir, "RdYlGn"),
-                            (ndwi, ndwi_val, ndwi_dir, "Blues"),
-                            (evi,  evi_val,  evi_dir,  "Greens"),
-                        ]:
-                            masked = np.where(mask, index_data, np.nan)
-                            npy_path = index_dir / f"{timestamp:%Y%m%d}.npy"
-                            png_path = index_dir / f"{timestamp:%Y%m%d}.png"
-                            if (not npy_path.exists()) or (not png_path.exists()):
-                                if not np.isnan(index_val):
+                        # Per-pixel images are not needed to build the tile-level
+                        # workbooks consumed by the inference models.
+                        if bool(getattr(self.cfg, "save_index_images", True)):
+                            for index_data, index_val, index_dir, cmap in [
+                                (ndvi, ndvi_val, ndvi_dir, "RdYlGn"),
+                                (ndwi, ndwi_val, ndwi_dir, "Blues"),
+                                (evi,  evi_val,  evi_dir,  "Greens"),
+                            ]:
+                                masked = np.where(mask, index_data, np.nan)
+                                npy_path = index_dir / f"{timestamp:%Y%m%d}.npy"
+                                png_path = index_dir / f"{timestamp:%Y%m%d}.png"
+                                if (
+                                    (not npy_path.exists() or not png_path.exists())
+                                    and not np.isnan(index_val)
+                                ):
                                     np.save(npy_path, masked)
                                     plt.imsave(
                                         png_path,
                                         np.nan_to_num(masked, nan=-1),
-                                        cmap=cmap, vmin=-1, vmax=1
+                                        cmap=cmap,
+                                        vmin=-1,
+                                        vmax=1,
                                     )
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - continue with other dates
                 self.logger.warning(f"❌ Error in {ts_folder}: {e}")
                 continue
 

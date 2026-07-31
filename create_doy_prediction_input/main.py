@@ -3,15 +3,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
-import sys
+
 import yaml
 
 from create_doy_prediction_input.config import Config
-from create_doy_prediction_input.log import PipelineLogger
-from create_doy_prediction_input.global_analysis import GlobalAnalyzer
 from create_doy_prediction_input.farm_analysis import FarmLevelAnalyzer
+from create_doy_prediction_input.global_analysis import GlobalAnalyzer
+from create_doy_prediction_input.log import PipelineLogger
 from create_doy_prediction_input.summary import summarize_farm_harvest_dates
 from create_doy_prediction_input.utils.raster_io import cleanup_index_cache
 
@@ -140,6 +141,11 @@ def parse_args() -> argparse.Namespace:
 
     p.add_argument("--cleanup-npy", action="store_true")
     p.add_argument(
+        "--no-index-images",
+        action="store_true",
+        help="Do not save per-date NDVI/NDWI/EVI NPY and PNG files. Useful for model-inference input generation without farm analysis.",
+    )
+    p.add_argument(
         "--overwrite-outputs",
         action="store_true",
         help="Overwrite existing crop/farm CSV and plot outputs instead of skipping them.",
@@ -159,7 +165,7 @@ def list_tile_dirs(dataset_root: Path, tiles: list[str] | None) -> list[Path]:
     if tiles:
         tiles_set = set(tiles)
         selected = [d for d in all_tiles if d.name in tiles_set]
-        missing = sorted(list(tiles_set - {d.name for d in selected}))
+        missing = sorted(tiles_set - {d.name for d in selected})
         if missing:
             raise FileNotFoundError(f"Requested tiles not found under {dataset_root}: {missing}")
         return selected
@@ -196,7 +202,7 @@ def load_tile_checkpoint(checkpoint_path: Path, tile_name: str, logger: Pipeline
     try:
         with open(checkpoint_path, "r", encoding="utf-8") as f:
             raw = json.load(f)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 - recover from a corrupt checkpoint
         logger.warning(f"⚠️ Failed to read checkpoint {checkpoint_path}: {e}. Starting with empty checkpoint.")
         return checkpoint
 
@@ -263,10 +269,11 @@ def main() -> None:
         seeding_config_yaml=args.seeding_config_yaml,
     )
     cfg.overwrite_outputs = bool(args.overwrite_outputs)
+    cfg.save_index_images = not bool(args.no_index_images)
 
     try:
         tile_dirs = list_tile_dirs(args.dataset_root, args.tiles)
-    except Exception as e:
+    except OSError as e:
         logger.error(str(e))
         sys.exit(1)
 
@@ -280,6 +287,7 @@ def main() -> None:
     logger.info(f"run_farm      = {not args.no_farm}")
     logger.info(f"summarize     = {args.summarize}")
     logger.info(f"cleanup_npy   = {args.cleanup_npy}")
+    logger.info(f"index_images  = {cfg.save_index_images}")
     logger.info(f"overwrite     = {args.overwrite_outputs}")
     logger.info(f"resume        = {args.resume}")
     logger.info(f"checkpoint    = {CHECKPOINT_FILE_NAME}")
@@ -302,7 +310,7 @@ def main() -> None:
         enabled_stages.append("cleanup_npy")
 
     first_tile = tile_dirs[0]
-    first_ts = sorted(d.name for d in first_tile.iterdir() if d.is_dir())[0]
+    first_ts = min(d.name for d in first_tile.iterdir() if d.is_dir())
     year = int(first_ts.split("-")[0])
 
     for tile_dir in tile_dirs:

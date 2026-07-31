@@ -5,13 +5,14 @@ YEAR="${1:?usage: $0 YEAR [WORKERS]}"
 WORKERS="${2:-8}"
 RESET_CHECKPOINTS="${RESET_CHECKPOINTS:-1}"
 OVERWRITE_OUTPUTS="${OVERWRITE_OUTPUTS:-0}"
+# INFERENCE_ONLY is retained as a fallback for compatibility with older calls.
+WORKBOOK_ONLY="${WORKBOOK_ONLY:-${INFERENCE_ONLY:-0}}"
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CONDA_ENV_NAME="${CONDA_ENV_NAME:-deepsatmodels_env}"
-CONDA_ENV_PREFIX="${CONDA_ENV_PREFIX:-/home/yikebe/.conda/envs/${CONDA_ENV_NAME}}"
-PYTHON="${PYTHON:-${CONDA_ENV_PREFIX}/bin/python}"
-DATASET_BASE="${DATASET_BASE:-/home/yikebe/AR_sentinel2}"
-DATASET_ROOT="${DATASET_ROOT:-${DATASET_BASE}/${YEAR}_AR}"
+CONDA_ENV_PREFIX="${CONDA_ENV_PREFIX:-${CONDA_PREFIX:-}}"
+PYTHON="${PYTHON:-${CONDA_ENV_PREFIX:+${CONDA_ENV_PREFIX}/bin/python}}"
+DATASET_BASE="${DATASET_BASE:-}"
+DATASET_ROOT="${DATASET_ROOT:-${DATASET_BASE:+${DATASET_BASE}/${YEAR}_AR}}"
 OUTPUT_ROOT="${REPO_ROOT}/outputs/${YEAR}_AR"
 RUN_ID="$(date +%Y%m%d_%H%M%S)"
 LOG_ROOT="${LOG_ROOT:-${REPO_ROOT}/logs/harvest_parallel_${YEAR}_${RUN_ID}}"
@@ -19,6 +20,14 @@ LOG_ROOT="${LOG_ROOT:-${REPO_ROOT}/logs/harvest_parallel_${YEAR}_${RUN_ID}}"
 mkdir -p "${LOG_ROOT}"
 cd "${REPO_ROOT}"
 
+if [[ -z "${PYTHON}" || ! -x "${PYTHON}" ]]; then
+  echo "Python not found. Activate the project Conda environment or set PYTHON." >&2
+  exit 1
+fi
+if [[ -z "${DATASET_ROOT}" ]]; then
+  echo "Set DATASET_BASE or DATASET_ROOT before running this script." >&2
+  exit 1
+fi
 if [[ ! -d "${DATASET_ROOT}" ]]; then
   echo "Dataset root not found: ${DATASET_ROOT}" >&2
   exit 1
@@ -34,6 +43,7 @@ echo "year=${YEAR}" | tee "${LOG_ROOT}/run.log"
 echo "workers=${WORKERS}" | tee -a "${LOG_ROOT}/run.log"
 echo "reset_checkpoints=${RESET_CHECKPOINTS}" | tee -a "${LOG_ROOT}/run.log"
 echo "overwrite_outputs=${OVERWRITE_OUTPUTS}" | tee -a "${LOG_ROOT}/run.log"
+echo "workbook_only=${WORKBOOK_ONLY}" | tee -a "${LOG_ROOT}/run.log"
 echo "tiles=${#TILES[@]}" | tee -a "${LOG_ROOT}/run.log"
 echo "dataset_root=${DATASET_ROOT}" | tee -a "${LOG_ROOT}/run.log"
 echo "output_root=${OUTPUT_ROOT}" | tee -a "${LOG_ROOT}/run.log"
@@ -68,12 +78,15 @@ for ((worker=0; worker<WORKERS; worker++)); do
       --seeding-config-yaml "${REPO_ROOT}/configs/Arkansas/seeding_config.yaml"
       --output-root "${OUTPUT_ROOT}"
       --all-crops
-      --summarize
-      --cleanup-npy
       --log-dir "${LOG_ROOT}"
       --log-name "harvest_${YEAR}_worker_${worker}"
       --tiles "${SHARD_TILES[@]}"
     )
+    if [[ "${WORKBOOK_ONLY}" == "1" ]]; then
+      args+=(--no-farm --no-index-images)
+    else
+      args+=(--summarize --cleanup-npy)
+    fi
     if [[ "${RESET_CHECKPOINTS}" == "1" ]]; then
       args+=(--reset-checkpoints)
     fi
