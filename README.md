@@ -52,6 +52,40 @@ deepsatmodels_env_latest.yml   Exported Conda environment
 Large satellite data, generated model inputs, logs, and unarchived experiment
 outputs are intentionally not stored in Git.
 
+## Which File Runs Each Step
+
+The Python files contain the individual download, processing, training, and
+inference programs. The shell files are convenience wrappers that call those
+Python programs for multiple years, models, or temporal windows.
+
+### Python programs
+
+| Task | Python file | Main output |
+|---|---|---|
+| Download Sentinel-2 | `scripts/download_ar_sentinel_stac.py` | B2, B4, B8, B11, and SCL GeoTIFF files |
+| Download and align CDL | `scripts/prepare_ar_cdl_proxy.py` | One `cdl.tif` per tile |
+| Validate downloaded data | `scripts/validate_ar_current_data.py` | Terminal validation result and optional JSON report |
+| Create model-input workbooks | `create_doy_prediction_input/main.py` | `harvest_summary_all_crops.xlsx` per tile |
+| Train and evaluate a CNN | `doy_prediction/train_tile_cnn.py` | CNN checkpoint, metrics, and predictions |
+| Train and evaluate an RNN | `doy_prediction/train_tile_rnn.py` | RNN checkpoint, metrics, and predictions |
+| Train and evaluate a hybrid model | `doy_prediction/train_tile_hybrid.py` | Hybrid checkpoint, metrics, and predictions |
+| Run CNN inference | `doy_prediction/predict_tile_cnn.py` | Prediction CSV |
+| Run RNN inference | `doy_prediction/predict_tile_rnn.py` | Prediction CSV |
+| Combine CNN and RNN inference | `doy_prediction/predict_tile_hybrid_infer.py` | Late-fusion prediction CSV |
+| Aggregate a complete sweep | `doy_prediction/aggregate_all_crops_window_results.py` | Comparison Excel workbook |
+
+### Shell wrappers
+
+| Shell file | What it automates |
+|---|---|
+| `scripts/run_prepare_doy_inputs_parallel.sh` | Runs `create_doy_prediction_input/main.py` across one year's tiles with multiple workers |
+| `scripts/run_prepare_doy_inputs_2022_2023.sh` | Creates the 2022 and 2023 workbooks by calling the one-year parallel wrapper twice |
+| `scripts/run_all_crops_doy_window_sweep.sh` | Calls the CNN, RNN, and hybrid training programs for all crops, feature sets, and temporal windows |
+| `scripts/run_ar_current_2025.sh` | Runs the complete tested 2025 download, CDL, validation, workbook, and inference workflow |
+
+Use a Python program when running or debugging one operation. Use a shell
+wrapper when reproducing one of the complete workflows documented below.
+
 ## Prerequisites
 
 Use a Linux machine with:
@@ -138,9 +172,9 @@ contains four reflectance bands and the Sentinel-2 Scene Classification Layer
 If complete 2022 and 2023 directories already exist, skip to
 [Create the Excel inputs for training and inference](#5-create-the-excel-inputs-for-training-and-inference).
 
-## 4. Download and Validate Raw Data
+## 4. Download Raw Data
 
-### 4.1 Inspect a download without writing rasters
+### 4.1 Download Sentinel-2 data
 
 The downloader queries public Sentinel-2 L2A COGs and maps them onto the exact
 grid of `REFERENCE_ROOT`. `--end-date` is exclusive.
@@ -153,43 +187,13 @@ python scripts/download_ar_sentinel_stac.py \
   --start-date 2022-01-01 \
   --end-date 2023-01-01 \
   --cloud-cover-max 20 \
-  --inventory-only
-```
-
-Review the reported tile, STAC-item, and tile-date counts before downloading.
-
-### 4.2 Download Sentinel-2 data
-
-Remove `--inventory-only` to write the GeoTIFF files:
-
-```bash
-python scripts/download_ar_sentinel_stac.py \
-  --year 2022 \
-  --reference-root "$REFERENCE_ROOT" \
-  --output-root "$DATASET_BASE/2022_AR" \
-  --start-date 2022-01-01 \
-  --end-date 2023-01-01 \
-  --cloud-cover-max 20 \
-  --workers 4
-```
-
-To fill or verify the archived 2023 directory using its existing grids:
-
-```bash
-python scripts/download_ar_sentinel_stac.py \
-  --year 2023 \
-  --reference-root "$REFERENCE_ROOT" \
-  --output-root "$DATASET_BASE/2023_AR" \
-  --start-date 2023-01-01 \
-  --end-date 2024-01-01 \
-  --cloud-cover-max 20 \
   --workers 4
 ```
 
 Downloads are resumable. A valid existing raster with the expected grid is
 skipped. Each yearly output also receives a `download_manifest.json`.
 
-### 4.3 Download and align CDL crop masks
+### 4.2 Download and align CDL crop masks
 
 Create a crop mask using the CDL published for each training/evaluation year:
 
@@ -215,24 +219,6 @@ nearest-neighbor interpolation onto every tile's reference B4 grid.
 To reuse one year's CDL as a proxy for another target year, pass the target
 year to `--target-years`.
 
-### 4.4 Validate every raster grid
-
-Check that the existing 2022 and 2023 rasters are readable and aligned to the
-2023 reference grid. The validation covers tile names, required bands, CDL
-files, image dimensions, CRS, and affine transforms:
-
-```bash
-python scripts/validate_ar_current_data.py \
-  --years 2022 2023 \
-  --dataset-base "$DATASET_BASE" \
-  --reference-root "$REFERENCE_ROOT" \
-  --out-json "$DATASET_BASE/validation_2022_2023.json"
-```
-
-The command exits with an error if a tile, band, CDL file, or raster grid does
-not match the reference. It does not check whether every expected acquisition
-date was downloaded, or validate pixel values, clouds, or image content.
-
 ## 5. Create the Excel Inputs for Training and Inference
 
 The training and inference code does not read the downloaded GeoTIFF files
@@ -241,6 +227,24 @@ directly. First, convert them into one Excel workbook for each tile:
 ```text
 outputs/<YEAR>_AR/<TILE>/harvest_summary_all_crops.xlsx
 ```
+
+The workbook generator is `create_doy_prediction_input/main.py`. For example,
+the following command processes one year directly with Python:
+
+```bash
+python -m create_doy_prediction_input.main \
+  --dataset-root "$DATASET_BASE/2022_AR" \
+  --cdl-yaml configs/Arkansas/cdl.yaml \
+  --gt-windows-yaml configs/Arkansas/gt_windows.yaml \
+  --seeding-config-yaml configs/Arkansas/seeding_config.yaml \
+  --output-root outputs/2022_AR \
+  --all-crops \
+  --no-farm \
+  --no-index-images
+```
+
+This direct command processes the tiles sequentially. The shell wrappers below
+call the same Python file with multiple workers.
 
 To create the required workbooks for both 2022 and 2023, run:
 
@@ -269,66 +273,14 @@ bash scripts/run_prepare_doy_inputs_parallel.sh 2022 8
 ```
 
 Generated workbooks and intermediate outputs are written below `outputs/` and
-are ignored by Git. Verify that workbooks were produced before training:
-
-```bash
-find outputs/2022_AR -name harvest_summary_all_crops.xlsx | head
-find outputs/2023_AR -name harvest_summary_all_crops.xlsx | head
-```
+are ignored by Git.
 
 The processing scripts maintain per-tile checkpoints and can resume interrupted
 runs. When using `run_prepare_doy_inputs_parallel.sh` directly, set
 `RESET_CHECKPOINTS=0` to resume an existing run. The two-year convenience
 wrapper intentionally resets checkpoints and overwrites its generated outputs.
 
-## 6. Run the Tests
-
-Run the unit tests before starting a long GPU job:
-
-```bash
-pytest -q doy_prediction/tests
-```
-
-These tests cover time-series tensor construction and the tile-radius utilities.
-They do not download satellite data or train the full models.
-
-## 7. Run a Small Training Check
-
-Before launching the all-crops sweep, train a short CNN example for Rice:
-
-```bash
-python -m doy_prediction.train_tile_cnn \
-  --outputs-root outputs \
-  --crops Rice \
-  --feature-set all_indices \
-  --train-years 2022 \
-  --test-years 2023 \
-  --save-dir outputs_prediction_DOY/models/tutorial_cnn_1year \
-  --epochs 2 \
-  --batch-size 32 \
-  --num-workers 2 \
-  --device cuda
-```
-
-This command:
-
-- trains on 2022 tile/crop records;
-- takes the validation split from the 2022 records;
-- selects the checkpoint with the best validation mean MAE;
-- evaluates the selected checkpoint on 2023; and
-- writes the checkpoint, metrics, and prediction CSV files under
-  `outputs_prediction_DOY/models/tutorial_cnn_1year/all_indices/Rice/`.
-
-The same interface is available for:
-
-```text
-python -m doy_prediction.train_tile_rnn
-python -m doy_prediction.train_tile_hybrid
-```
-
-Use `python -m <module> --help` to see model-specific options.
-
-## 8. Train and Evaluate the Full Model Sweep
+## 6. Train and Evaluate the Full Model Sweep
 
 The maintained sweep trains all crops listed in
 `configs/Arkansas/gt_windows.yaml` for:
@@ -340,6 +292,8 @@ The maintained sweep trains all crops listed in
 
 It also runs late-fusion hybrid inference from the trained CNN and RNN
 checkpoints. The complete default sweep contains hundreds of GPU training jobs.
+The shell wrapper calls `train_tile_cnn.py`, `train_tile_rnn.py`,
+`train_tile_hybrid.py`, and `predict_tile_hybrid_infer.py`.
 
 Start the full run:
 
@@ -394,7 +348,7 @@ A crop listed in one of these files is restricted to that date range. A crop
 that is not listed uses all available dates. The `1year` run always uses all
 available dates.
 
-## 9. Read and Aggregate Evaluation Results
+## 7. Read and Aggregate Evaluation Results
 
 Training writes evaluation results into each crop's `metrics.json`.
 
@@ -419,12 +373,11 @@ python -m doy_prediction.aggregate_all_crops_window_results \
   --test-year 2023
 ```
 
-Check `run_status.tsv` for failed jobs before interpreting the workbook.
-
-## 10. Run Inference with Existing CNN and RNN Checkpoints
+## 8. Run Inference with Existing CNN and RNN Checkpoints
 
 The archived model can be used without retraining after Git LFS has downloaded
-the checkpoints and model-input workbooks have been prepared.
+the checkpoints and model-input workbooks have been prepared. The late-fusion
+implementation is `doy_prediction/predict_tile_hybrid_infer.py`.
 
 ```bash
 export MODEL_ROOT="$REPO_ROOT/outputs_prediction_DOY/models/all_crops_doy_window_sweep_2022_train_2023_test_20260628_144732"
@@ -453,7 +406,7 @@ or:
 
 Do not combine a checkpoint with a different temporal-window configuration.
 
-## 11. Reproduce the Tested 2025 Workflow
+## 9. Reproduce the Tested 2025 Workflow
 
 The 2025 runner performs the complete workflow used for the archived inference
 results:
@@ -498,53 +451,3 @@ and `ndvi_only` features.
 | `configs/Arkansas/seeding_config.yaml` | Seeding-estimation windows and offsets |
 | `configs/Arkansas/doy_input_first_6mo.yaml` | Optional January-June input windows |
 | `configs/Arkansas/doy_input_first_9mo.yaml` | Optional January-September input windows |
-
-## Common Problems
-
-### `No reference B4 raster` or `No reference tiles found`
-
-`REFERENCE_ROOT` is missing the archived tile structure. Confirm that it points
-to a directory such as `$DATASET_BASE/2023_AR` and that every tile contains at
-least one acquisition with B2, B4, B8, B11, and SCL rasters.
-
-### `Conda environment python not found`
-
-Activate the project environment before running a shell script:
-
-```bash
-conda activate deepsatmodels_env
-```
-
-For a differently named environment, set `CONDA_ENV_PREFIX` to its absolute
-path.
-
-### `No tile-crop records found`
-
-Confirm that both yearly output directories contain
-`harvest_summary_all_crops.xlsx` files and that the requested crop appears in
-those workbooks.
-
-### CUDA is unavailable
-
-Check the driver and PyTorch from inside the activated environment:
-
-```bash
-nvidia-smi
-python -c "import torch; print(torch.cuda.is_available())"
-```
-
-The maintained training workflow expects this command to print `True`.
-
-### W&B credentials are requested
-
-Disable optional W&B logging for a local run:
-
-```bash
-export WANDB_ENABLED=0
-```
-
-## License and Data Terms
-
-Before redistributing raw Sentinel-2 imagery, CDL files, trained checkpoints,
-or derived outputs, verify the applicable upstream data terms and the intended
-sharing policy for this research project.
