@@ -1,0 +1,255 @@
+{
+  "schema": "metric_final_fit_metrics_v1",
+  "status": "complete",
+  "crop": "Sorghum",
+  "model": "hybrid",
+  "model_name": "cnn_rnn_hybrid",
+  "model_config": {
+    "cnn_hidden_channels": [
+      32,
+      64,
+      128
+    ],
+    "rnn_hidden_size": 64,
+    "rnn_num_layers": 2,
+    "rnn_hidden_sizes": [
+      32,
+      64,
+      128
+    ],
+    "dropout": 0.2,
+    "rnn_type": "gru",
+    "bidirectional": false
+  },
+  "window": "1year",
+  "feature_set": "ndvi_only",
+  "train_years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "test_years": [],
+  "val_fraction": 0.0,
+  "epochs_requested": 40,
+  "epochs_completed": 40,
+  "selected_epoch": 40,
+  "selection_policy": "final_epoch",
+  "num_source": 14831,
+  "num_train": 14831,
+  "num_val": 0,
+  "num_test": 0,
+  "records_by_source_year": {
+    "2020": 2623,
+    "2021": 6377,
+    "2022": 1792,
+    "2023": 2452,
+    "2024": 1587
+  },
+  "records_by_optimizer_year": {
+    "2020": 2623,
+    "2021": 6377,
+    "2022": 1792,
+    "2023": 2452,
+    "2024": 1587
+  },
+  "split_audit": {
+    "source_record_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "optimizer_record_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "validation_record_years": [],
+    "test_record_years": [],
+    "train_validation_overlap_count": 0,
+    "train_test_overlap_count": 0,
+    "validation_test_overlap_count": 0,
+    "unassigned_record_count": 0,
+    "all_source_records_receive_weight_updates": true
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.08052104640799551
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.07477272632971077
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.07388140112020974
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.07311497856963631
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.07284378014265282
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.07231293811888763
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.07210708398018521
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.0717409261969588
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.07165687403933453
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.0714530778626688
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.07125348848093625
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.07087687971239329
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.0707978273140758
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.07072357935817764
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.07070987033308272
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.07057387593287884
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.07038002332036859
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.07047411519563107
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.07043556710734675
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.07023331200598859
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.07005848379795762
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.07018392730669301
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.06995287946701115
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.0700775690421469
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.0700261195689916
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.06991058981580973
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.06987240531847085
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.06983740132659479
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.06976774182540119
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.06971717161570337
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.06965518287782338
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.06977956992577866
+    },
+    {
+      "epoch": 33,
+      "train_loss": 0.06964168723969777
+    },
+    {
+      "epoch": 34,
+      "train_loss": 0.06954603787408853
+    },
+    {
+      "epoch": 35,
+      "train_loss": 0.06967523624963155
+    },
+    {
+      "epoch": 36,
+      "train_loss": 0.06948701157793176
+    },
+    {
+      "epoch": 37,
+      "train_loss": 0.06961758402068506
+    },
+    {
+      "epoch": 38,
+      "train_loss": 0.06976977580526933
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.06934486754004
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.06942995135440612
+    }
+  ],
+  "train_metrics": {
+    "mae_start": 29.337064743041992,
+    "mae_end": 20.644123077392578,
+    "mae_mean": 24.990593910217285,
+    "mae_window": 38.78153991699219,
+    "iou_mean": 0.6068450212478638,
+    "ordered_pct": 1.0
+  },
+  "val_metrics": {},
+  "test_metrics": {},
+  "checkpoint": "harvest_estimation/models/2.5km_ndvi/1year/ndvi_only/Sorghum/final_model.pt",
+  "wandb": "disabled",
+  "physical_gpu": 6
+}

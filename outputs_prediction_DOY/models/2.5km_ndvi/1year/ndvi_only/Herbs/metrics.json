@@ -1,0 +1,255 @@
+{
+  "schema": "metric_final_fit_metrics_v1",
+  "status": "complete",
+  "crop": "Herbs",
+  "model": "hybrid",
+  "model_name": "cnn_rnn_hybrid",
+  "model_config": {
+    "cnn_hidden_channels": [
+      32,
+      64,
+      128
+    ],
+    "rnn_hidden_size": 64,
+    "rnn_num_layers": 2,
+    "rnn_hidden_sizes": [
+      32,
+      64,
+      128
+    ],
+    "dropout": 0.2,
+    "rnn_type": "gru",
+    "bidirectional": false
+  },
+  "window": "1year",
+  "feature_set": "ndvi_only",
+  "train_years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "test_years": [],
+  "val_fraction": 0.0,
+  "epochs_requested": 40,
+  "epochs_completed": 40,
+  "selected_epoch": 40,
+  "selection_policy": "final_epoch",
+  "num_source": 2021,
+  "num_train": 2021,
+  "num_val": 0,
+  "num_test": 0,
+  "records_by_source_year": {
+    "2020": 192,
+    "2021": 35,
+    "2022": 13,
+    "2023": 556,
+    "2024": 1225
+  },
+  "records_by_optimizer_year": {
+    "2020": 192,
+    "2021": 35,
+    "2022": 13,
+    "2023": 556,
+    "2024": 1225
+  },
+  "split_audit": {
+    "source_record_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "optimizer_record_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "validation_record_years": [],
+    "test_record_years": [],
+    "train_validation_overlap_count": 0,
+    "train_test_overlap_count": 0,
+    "validation_test_overlap_count": 0,
+    "unassigned_record_count": 0,
+    "all_source_records_receive_weight_updates": true
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.13857896396690286
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.09286676006246947
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.09249325573835145
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.09213609893182785
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.09157809461036098
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.09036973602092838
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.09149655589501142
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.09029931624460079
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.09066939853105965
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.09012682881908568
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.08988760266488051
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.08894256172809549
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.08953270884594783
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.08835912670779794
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.08840217383441094
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.08821772747128863
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.08811595199472064
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.08743693180776715
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.08645153434957271
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.0871745845296488
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.08626352836373771
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.0867727319574014
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.08577056385794234
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.08527805217307195
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.08620384193953165
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.08528467482679378
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.08505406586627509
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.08510692161035562
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.08526544090413858
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.08551223764084519
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.08386114205038825
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.08541634550178953
+    },
+    {
+      "epoch": 33,
+      "train_loss": 0.08415840946982132
+    },
+    {
+      "epoch": 34,
+      "train_loss": 0.0840213830955603
+    },
+    {
+      "epoch": 35,
+      "train_loss": 0.08370697260905705
+    },
+    {
+      "epoch": 36,
+      "train_loss": 0.08440604973685795
+    },
+    {
+      "epoch": 37,
+      "train_loss": 0.08396936979242506
+    },
+    {
+      "epoch": 38,
+      "train_loss": 0.08390994882049801
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.08347916594609242
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.08312221138356995
+    }
+  ],
+  "train_metrics": {
+    "mae_start": 41.59326934814453,
+    "mae_end": 16.15685272216797,
+    "mae_mean": 28.87506103515625,
+    "mae_window": 40.356754302978516,
+    "iou_mean": 0.5365208387374878,
+    "ordered_pct": 1.0
+  },
+  "val_metrics": {},
+  "test_metrics": {},
+  "checkpoint": "harvest_estimation/models/2.5km_ndvi/1year/ndvi_only/Herbs/final_model.pt",
+  "wandb": "disabled",
+  "physical_gpu": 6
+}

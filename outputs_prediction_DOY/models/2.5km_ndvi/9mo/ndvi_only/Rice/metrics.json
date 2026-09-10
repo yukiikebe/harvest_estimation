@@ -1,0 +1,255 @@
+{
+  "schema": "metric_final_fit_metrics_v1",
+  "status": "complete",
+  "crop": "Rice",
+  "model": "hybrid",
+  "model_name": "cnn_rnn_hybrid",
+  "model_config": {
+    "cnn_hidden_channels": [
+      32,
+      64,
+      128
+    ],
+    "rnn_hidden_size": 64,
+    "rnn_num_layers": 2,
+    "rnn_hidden_sizes": [
+      32,
+      64,
+      128
+    ],
+    "dropout": 0.2,
+    "rnn_type": "gru",
+    "bidirectional": false
+  },
+  "window": "9mo",
+  "feature_set": "ndvi_only",
+  "train_years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "test_years": [],
+  "val_fraction": 0.0,
+  "epochs_requested": 40,
+  "epochs_completed": 40,
+  "selected_epoch": 40,
+  "selection_policy": "final_epoch",
+  "num_source": 54259,
+  "num_train": 54259,
+  "num_val": 0,
+  "num_test": 0,
+  "records_by_source_year": {
+    "2020": 11642,
+    "2021": 10817,
+    "2022": 11155,
+    "2023": 11326,
+    "2024": 9319
+  },
+  "records_by_optimizer_year": {
+    "2020": 11642,
+    "2021": 10817,
+    "2022": 11155,
+    "2023": 11326,
+    "2024": 9319
+  },
+  "split_audit": {
+    "source_record_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "optimizer_record_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "validation_record_years": [],
+    "test_record_years": [],
+    "train_validation_overlap_count": 0,
+    "train_test_overlap_count": 0,
+    "validation_test_overlap_count": 0,
+    "unassigned_record_count": 0,
+    "all_source_records_receive_weight_updates": true
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.05923550925191393
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0558561155579983
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.05507181532696505
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.05442617246839418
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.053970157285918224
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.05372580037149312
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.05348115790624431
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.05338773288630675
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.05329257632446978
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.05331624618902448
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.053204877533117596
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.05312266403114684
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.053139351530658956
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.05309857701880214
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.05315914936195486
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.053024364308504025
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.05299492897297099
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.052922487258636505
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.05295169056239087
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.05287040165798718
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.05284412128130565
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.05285161869946896
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.05280664919346951
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.052809541838852905
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.0527676063516271
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.05275053973916886
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.05278595496645265
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.052728536840924475
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.052701130684110004
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.05271634068415243
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.052668975974746735
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.052665230997924126
+    },
+    {
+      "epoch": 33,
+      "train_loss": 0.05272342890946473
+    },
+    {
+      "epoch": 34,
+      "train_loss": 0.052768047983113305
+    },
+    {
+      "epoch": 35,
+      "train_loss": 0.05273456935491528
+    },
+    {
+      "epoch": 36,
+      "train_loss": 0.05276311540545306
+    },
+    {
+      "epoch": 37,
+      "train_loss": 0.05271852116901844
+    },
+    {
+      "epoch": 38,
+      "train_loss": 0.052731189602164594
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.05272916989681552
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.052696767631376415
+    }
+  ],
+  "train_metrics": {
+    "mae_start": 18.59984588623047,
+    "mae_end": 19.403656005859375,
+    "mae_mean": 19.001750946044922,
+    "mae_window": 29.92624282836914,
+    "iou_mean": 0.6594696044921875,
+    "ordered_pct": 1.0
+  },
+  "val_metrics": {},
+  "test_metrics": {},
+  "checkpoint": "harvest_estimation/models/2.5km_ndvi/9mo/ndvi_only/Rice/final_model.pt",
+  "wandb": "disabled",
+  "physical_gpu": 1
+}
